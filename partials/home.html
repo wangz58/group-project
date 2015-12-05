@@ -1,13 +1,17 @@
-<div>
+<div class="form-group" id="signIn" ng-controller="HomeCtrl">
 	<h1>FIND YOUR PET A TEMPORARY HOME!</h1>
 	<form id="signInForm" name="signinform" nonvalidate>
-		<input id="email" name="email" placeholder="Email" ng-model="emailAddress" required>
+
+		<input class="form-control" id="email" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
   		<!-- shows corresponding error message if the email is blank or invalid -->			
-		<p class="help-block" ng-show="(signinform.password.$error.required && signinform.password.$touched) || (signinform.password.$error.required && !signinform.password.$pristine)">We need to know your email.</p>
-		<p ng-model="invalidEmail" class="help-block" ng-show="submitform.email.$error.email">Not valid email!</p></br>
-		<input id="password" name="password" placeholder="Password" ng-model="passcode" required>
+		<p class="help-block" ng-show="(signinform.email.$error.required && signinform.email.$touched) || (signinform.email.$error.required && !signinform.email.$pristine)">We need to know your email.</p>
+		<p ng-model="invalidEmail" class="help-block" ng-show="signinform.email.$error.email">Not valid email!</p><br>
+
+		<input class="form-control" id="password" name="password" type="password" placeholder="Password" ng-model="passcode" required>
 		<p class="help-block" ng-show="(signinform.password.$error.required && signinform.password.$touched) || (signinform.password.$error.required && !signinform.password.$pristine)" class="help-block">Password required!</p></br>
-		<button ng-click="signIn">Sign In</button>
-		<a ui><button>Sign Up</button></a>
+
+		<button class="btn btn-default" ng-click="signIn">Sign In</button>
+		<a ui-sref="signup"><button class="btn btn-default">Sign Up</button></a>
+		
 	</form>
 </div>
