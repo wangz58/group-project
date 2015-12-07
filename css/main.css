@@ -1,10 +1,11 @@
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css");
+@import url(https://fonts.googleapis.com/css?family=Bubblegum+Sans);
 
 #signup {
 	float: right;
 	overflow: auto;
 }
-<<<<<<< HEAD
+
 #makePostTitle {
 	text-align: center;
 	font-size: 50px;
@@ -20,7 +21,7 @@
 	display: inline-block;
 }
 #post {
-	background-color: gray;
+	background-color: #FEF9E6;
 
 }
 #pageTitle{
@@ -31,4 +32,50 @@ img {
 	width: 300px;
 	height: auto;
 }
+.navbar-default {
+	background-color: #524845;
+}
+body {
+	background-color: #D9D2C1;
+	font-family: 'Bubblegum Sans', cursive;
+}
+.nav.navbar-nav li a{
+	color: #BBBAB6;
+	font-size: 25px;
+}
+
+label {
+	font-size: 20px;
+}
+.nav.navbar-nav li a:hover {
+	-webkit-transform: rotate(7deg);
+	transform: rotate(7deg);
+	color:white;
+}
+.nav.navbar-nav li a:hover {
+	-webkit-transition: all 0.7s ease;
+	transition: all 0.7s ease;
+}
+.nav.navbar-nav li a:active {
+	color: white;
+}
+footer {
+   position:absolute;
+   width: 100%;
+   bottom:0;
+   height:40px;   /* Height of the footer */
+   background:#524845;
+   color: #BBBAB6;
+}
+#right {
+	float: right;
+}
+#signup {
+	float: right;
+}
+#postImage {
+	float: left;
+	margin-right: 20px;
+}
+
 

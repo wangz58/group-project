@@ -116,3 +116,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
+
+    var usersRef = ref.child('users');
+    $scope.users = $firebaseObject(usersRef);
+
