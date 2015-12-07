@@ -1,0 +1,55 @@
+<div class="form-group" ng-controller="SignupCtrl">
+	<h1>BECOME A PET OWNER/HELPER</h1>
+	<form id="signUpForm" name="signupform" nonvalidate>
+		<input class="form-control" id="email" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
+  		<!-- shows corresponding error message if the email is blank or invalid -->			
+		<p class="help-block" ng-show="(signupform.email.$error.required && signupform.email.$touched) || (signupform.email.$error.required && !signupform.email.$pristine)">We need to know your email.</p>
+		<p ng-model="invalidEmail" class="help-block" ng-show="signupform.email.$error.email">Not valid email!</p><br>
+
+		<input class="form-control" id="cusName" name="customername" type="text" placeholder="name" ng-model="customerName" required>
+		<p class="help-block" ng-show="(signupform.customername.$error.required && signupform.customername.$touched) || (signupform.customername.$error.required && !signupform.customername.$pristine)">Please tell us your name.</p><br>
+
+		<input class="form-control" id="phoneNum" name="phonenum" type="number" placeholder="phone number" maxlength=10 minlength=10 ng-model="phoneNumber"><br>
+		<p class="help-block" ng-show="signupform.phonenum.$error.minlength || signupform.phonenum.$error.maxlength">Please give a correct phone number.</p>
+
+		<input class="form-control" id="career" name="career" type="text" placeholder="career"><br>
+		<input class="form-control" id="streetAdd" name="streetadd" type="text" ng-model="streetAddress" placeholder="street address" required>
+		<p class="help-block" ng-show="(signupform.streetadd.$error.required && signupform.streetadd.$touched) || (signupform.streetadd.$error.required && !signupform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p><br>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+
+				<input class="form-control" id="city" name="city" type="text" placeholder="city" ng-model="city" required><br>
+				<p class="help-block" ng-show="(signupform.city.$error.required && signupform.city.$touched) || (signupform.city.$error.required && !signupform.city.$pristine)">Please tell us the city you live in.</p>
+
+			</div>
+			<div class="col-xs-12 col-sm-4">
+
+				<input class="form-control" id="state" name="state" type="text" ng-model="state" placeholder="state" minlength=2 maxlength=2 required><br>
+				<p class="help-block" ng-show="(signupform.state.$error.required && signupform.state.$touched) || (signupform.state.$error.required && !signupform.state.$pristine)">Please tell us the state you live in.</p>
+				<p class="help-block" ng-show="signupform.state.$error.minlength || signupform.state.$error.maxlength">Please enter the state name in two letters</p>
+
+			</div>
+			<div class="col-xs-12 col-sm-4">
+
+				<input class="form-control" id="postalCode" name="postalcode" type="text" ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/" placeholder="postal code" ng-model="postalCode" required><br>
+				<p class="help-block" ng-show="(signupform.postalcode.$error.required && signupform.postalcode.$touched) || (signupform.postalcode.$error.required && !signupform.postalcode.$pristine)">Please provide a postal code.</p>
+				<p class="help-block" ng-show="signupform.postalcode.$touched && signupform.postalcode.$error.pattern">Please enter a valid postal code.</p>
+
+			</div>
+		</div>
+		<input type="password" id="password" name="password" class="form-control" placeholder="password" ng-model="password" required/>
+		<!-- display required message if user didn't enter a password -->
+		<p class="help-block" ng-show="(signupform.password.$error.required && signupform.password.$touched) || (signupform.password.$error.required && !signupform.password.$pristine)" class="help-block">Password required!</p><br>
+		
+		<!-- user should put the password again to confirm. -->
+		<input type="password" id="confirmPassword" name="confirmpassword" class="form-control" placeholder="confirm password" ng-change="compareTo()" ng-model="confirmPassword" required/>
+		<!-- display "not matching" message if user enters a different password -->
+		<p class="help-block" ng-show="password.length > 0  && confirmPassword.length > 0 && !compareTo()">Passwords do not match.</p>
+		<br>
+
+		<button class="btn btn-default" ng-click="reset()">Reset</button>
+		<button class="btn btn-default" ng-disabled="signupform.$invalid" ng-click="submit()">Submit</button>
+
+	</form>
+</div>
