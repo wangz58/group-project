@@ -1,6 +1,6 @@
 <!--Profile Edit-->
 
-<body ng-App="Profile" ng-controller="MyCtrl" style="background-color:#F6CEE3">
+<body ng-App="Profile" ng-controller="EditCtrl">
     <div class="container">
         <form name="profileform" id="profileForm" nonvalidate>
             <h1> Edit My Profile </h1> Profile Picture:
@@ -17,17 +17,15 @@
             <div class="form-group">
                 <!-- user can put in the first name and it is required -->
                 <label for="firstName">First Name</label>
-                </br>
                 <input type="text" name="firstName" class="form-control" id="firstName" ng-model="firstname" placeholder="your first name" required>
                 <!-- shows the error message if the field is left blank after touching it -->
                 <p ng-model="noFastName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your first name.</p>
                 <!-- user can put in the last name and it is optional -->
                 <label for="lastName">Last Name</label>
-                </br>
-                <input type="text" name="lastName" class="form-control" id="lastName" placeholder="your last name" ng-model="lastName">
+                <input type="text" name="lastName" class="form-control" id="lastName" placeholder="your last name" ng-model="lastName"></br>
                 <!-- user can put in the gender and it is required -->
                 <label for="lastName">Gender</label>
-                </br>
+                
                 <input type="radio" name="gender" value="Male"> Male
                 <input type="radio" name="gender" value="Female"> Female
                 <input type="radio" name="gender" value="Other"> Other</br>
@@ -37,6 +35,46 @@
                 <!-- display required message if user didn't enter a valid birth date -->
                 <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
                 <p class="help-block" id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
+                <!-- user's phone number and address-->
+                <label for="phonenum">Phone Number</label>
+                <input class="form-control" id="phoneNum" name="phonenum" type="number" placeholder="phone number" maxlength=10 minlength=10 ng-model="newUser.phoneNumber"><br>
+                <p class="help-block" ng-show="signupform.phonenum.$error.minlength || signupform.phonenum.$error.maxlength">Please give a correct phone number.</p>
+
+
+
+                <label for="street">Street Address</label>
+
+                <input class="form-control" id="streetAdd" name="streetadd" type="text" ng-model="newUser.streetAddress" placeholder="street address" required>
+                <p class="help-block" ng-show="(signupform.streetadd.$error.required && signupform.streetadd.$touched) || (signupform.streetadd.$error.required && !signupform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p><br>
+
+            <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <label for="city">City</label>
+
+                <input class="form-control" id="city" name="city" type="text" placeholder="city" ng-model="newUser.city" required><br>
+                <p class="help-block" ng-show="(signupform.city.$error.required && signupform.city.$touched) || (signupform.city.$error.required && !signupform.city.$pristine)">Please tell us the city you live in.</p>
+
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <label for="state"> State</label>
+
+                <input class="form-control" id="state" name="state" type="text" ng-model="newUser.state" placeholder="state" minlength=2 maxlength=2 required><br>
+                <p class="help-block" ng-show="(signupform.state.$error.required && signupform.state.$touched) || (signupform.state.$error.required && !signupform.state.$pristine)">Please tell us the state you live in.</p>
+                <p class="help-block" ng-show="signupform.state.$error.minlength || signupform.state.$error.maxlength">Please enter the state name in two letters</p>
+
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <label for="postcode">Post Code</label>
+
+                <input class="form-control" id="postalCode" name="postalcode" type="text" ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/" placeholder="postal code" ng-model="newUser.postalCode" required><br>
+                <p class="help-block" ng-show="(signupform.postalcode.$error.required && signupform.postalcode.$touched) || (signupform.postalcode.$error.required && !signupform.postalcode.$pristine)">Please provide a post code.</p>
+                <p class="help-block" ng-show="signupform.postalcode.$touched && signupform.postalcode.$error.pattern">Please enter a valid post code.</p>
+
+            </div>
+
+
+
+
                 <!-- user can type in the email and it is required  -->
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="email address" ng-model="email.text" required>
@@ -58,25 +96,22 @@
             <div class="form-group">
                 <!-- user can put in the pet's name and it is required -->
                 <label for="firstName">Name</label>
-                </br>
                 <input type="text" name="firstName" class="form-control" id="firstName" ng-model="firstname" placeholder="your pet's first name" required>
                 <!-- shows the error message if the field is left blank after touching it -->
                 <p ng-model="noFastName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your pet's name.</p>
                 <!-- user can put in breed of the pet and it is required -->
                 <label for="breed">Breed</label>
-                </br>
                 <input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="breed" required>
                 <!-- shows the error message if the field is left blank after touching it -->
                 <p ng-model="noBreed" class="help-block" ng-show="(profileform.breed.$error.required && profileform.breed.$touched) || (profileform.breed.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's breed.</p>
                 <!-- user can put in the pet's gender and it is required -->
                 <label for="lastName">Gender</label>
-                </br>
                 <input type="radio" name="gender" value="Male"> Male
                 <input type="radio" name="gender" value="Female"> Female
                 <input type="radio" name="gender" value="Other"> Other</br>
                 <!-- user should put in their birthdate -->
                 <label for="birthdate" id="birthLabel">Birthdate</label>
-                <input type="text" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="birthdate" ng-change="checkBirth()" required>
+                <input type="date" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="birthdate" required>
                 <!-- display required message if user didn't enter a valid birth date -->
                 <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
                 <p class="help-block" id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
