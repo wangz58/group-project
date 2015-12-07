@@ -21,6 +21,17 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			templateUrl: 'partials/discussion.html',
 			controller: 'DiscussionCtrl'
 		})
+		.state('profile', {
+			url: '/profile', 
+			templateUrl: 'partials/profile.html',
+			controller: 'ProfileCtrl'
+		})
+		.state('edit', {
+			url: '/edit', 
+			templateUrl: 'partials/edit.html',
+			controller: 'EditCtrl'
+		})
+		
 		.state('makePost', {
 		    url: '/makePost',
 			templateUrl: 'partials/makePost.html',
@@ -115,15 +126,4 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 }])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 
-    $("file").change(function () {
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = imageIsLoaded;
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-
-	function imageIsLoaded(e) {
-    $('#myImg').attr('src', e.target.result);
-	};
 }])
