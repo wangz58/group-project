@@ -14,14 +14,30 @@ angular.module('PetApp', ['ngSanitize', 'ui.router'])
 			controller: 'SignupCtrl'
 		})	
 		.state('discussion', {
-			url: '/discussion', // bean id for each type of bean in order page
+			url: '/discussion', 
 			templateUrl: 'partials/discussion.html',
 			controller: 'DiscussionCtrl'
+		})
+		.state('makePost', {
+		    url: '/makePost',
+			templateUrl: 'partials/makePost.html',
+			controller: 'makePostCtrl'	
+		})
+		.state('posts', {
+		    url: '/posts',
+			templateUrl: 'partials/posts.html',
+			controller: 'postsCtrl'	
 		})
 })
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
 .controller('SignupCtrl', ['$scope', '$http', function($scope, $http) {
+	
+}])
+.controller('makePostCtrl', ['$scope', '$http', function($scope, $http) {
+	
+}])
+.controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])

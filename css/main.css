@@ -4,3 +4,29 @@
 	float: right;
 	overflow: auto;
 }
+#makePostTitle {
+	text-align: center;
+	font-size: 50px;
+}
+.help-block {
+	color:red;
+}
+#searchPost {
+	float: right;
+	width: 400px;
+}
+#breedChoice {
+	display: inline-block;
+}
+#post {
+	background-color: gray;
+
+}
+#pageTitle{
+	text-align: center;
+	margin: 50px;
+}
+img {
+	width: 300px;
+	height: auto;
+}
