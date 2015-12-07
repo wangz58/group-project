@@ -45,8 +45,44 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	$scope.newUser = {};
 
-	$scope.signup = function() {
+	$scope.submit = function() {
+		console.log("signing up: " + $scope.newUser.emailAddress);
+      	Auth.$createUser({
+	        'email': $scope.newUser.emailAddress,
+	        'password': $scope.newUser.password
+      	})
+      	.then(function() {
+			var promise = Auth.$authWithPassword({
+				'email': $scope.newUser.emailAddress,
+				'password': $scope.newUser.password
+			});
+			return promise;
+      	})
+      	.then(function(authData) {
+      		if ($scope.newUser.phoneNumber == null) {
+      			$scope.newUser.phoneNumber = '';
+      		};
 
+      		if ($scope.newUser.career == null) {
+      			$scope.newUser.career = '';
+      		}
+
+      		var newUserInfo = {
+      			'name': $scope.newUser.customerName,
+      			'phonenumber': $scope.newUser.phonenumber,
+      			'career': $scope.newUser.career,
+      			'streetaddress': $scope.newUser.streetAddress,
+      			'city': $scope.newUser.city,
+      			'state': $scope.newUser.state,
+      			'postalcode': $scope.newUser.postalCode
+      		};
+
+      		$scope.users[authData.uid] = newUserInfo;
+
+      		$scope.users.$save();
+      	}).catch(function(error) {
+      		console.log(error);
+      	})
 	};
 
 	$scope.compareTo = function() {
