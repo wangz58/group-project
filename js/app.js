@@ -120,6 +120,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.reset = function() {
 		location.reload();
 	};
+	
 }])
 .controller('makePostCtrl', ['$scope', '$http', function($scope, $http) {
 	
