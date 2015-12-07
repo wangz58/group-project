@@ -129,6 +129,5 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 }])
 
-    var usersRef = ref.child('users');
-    $scope.users = $firebaseObject(usersRef);
+
 

@@ -27,9 +27,10 @@
 	text-align: center;
 	margin: 50px;
 }
+
 img {
-	width: 300px;
-	height: auto;
+	max-width:100%;
+    max-height:100%
 }
 .navbar-default {
 	background-color: #524845;
@@ -59,10 +60,10 @@ label {
 	color: white;
 }
 footer {
-   position:absolute;
+   position:relative;
    width: 100%;
    bottom:0;
-   height:40px;   /* Height of the footer */
+   height:40px;   
    background:#524845;
    color: #BBBAB6;
 }
@@ -74,5 +75,6 @@ footer {
 	float: left;
 	margin-right: 20px;
 }
+
 
 
