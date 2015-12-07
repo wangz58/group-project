@@ -1,1 +1,118 @@
 <!--Profile Edit-->
+
+<h1> Edit My Profile </h1>
+<form action="demo_form.asp">
+		<input type="file" name="pic" accept="image/*">
+		<input type="submit">
+</form></br>
+
+<form name="profileform" id="profileForm" nonvalidate>
+	<div class="form-group">
+		
+		<!-- user can put in the first name and it is required -->
+	    <label for="firstName">First Name</label></br>
+		<input type="text" name="firstName" class="form-control" id="firstName" ng-model="firstname" placeholder="your first name" required>
+		<!-- shows the error message if the field is left blank after touching it -->
+		<p ng-model="noFastName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your first name.</p>
+
+
+		 
+		<!-- user can put in the last name and it is optional --> 
+		<label for="lastName">Last Name</label></br>
+		<input type="text" name="lastName" class="form-control" id="lastName" placeholder="your last name" ng-model="lastName">
+	
+
+
+
+		<!-- user can put in the gender and it is required --> 
+		<label for="lastName">Gender</label></br>
+		<input type="radio" name="gender" value="Male"> Male
+		<input type="radio" name="gender" value="Female"> Female
+		<input type="radio" name="gender" value="Other"> Other</br>
+
+
+
+
+
+		<!-- user should put in the birthdate -->
+		<label for="birthdate" id="birthLabel">Birthdate</label>
+		<input type="text" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="birthdate" ng-change="checkBirth()" required>
+		<!-- display required message if user didn't enter a valid birth date -->
+		<p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
+		<p class="help-block"  id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
+
+
+
+
+
+		<!-- user can type in the email and it is required  -->
+		<label for="email">Email</label>
+  		<input type="email" name="email" class="form-control" id="email" placeholder="email address" ng-model="email.text" required>
+  		<!-- shows corresponding error message if the email is blank or invalid -->			
+		<p ng-model="noEmail" class="help-block" ng-show="(profileform.email.$error.required && profileform.email.$touched) || (profileform.email.$error.required && !profileform.email.$pristine)">We need to know your email.</p>
+		<p ng-model="invalidEmail" class="help-block" ng-show="profileform.email.$error.email">Not valid email!</p>
+
+
+
+
+		<!-- user can type in the bio and it is optional  -->
+		<label for="bio">Add your bio</label>
+  		<input type="bio" name="bio" class="form-control" id="bio" placeholder="a little thing about you"></br>
+		
+
+
+  	</div>
+
+
+
+	<h1> My Pets </h1>
+	<form action="demo_form.asp">
+			<input type="file" name="pic" accept="image/*">
+			<input type="submit">
+	</form></br>
+
+	<div class="form-group">
+		<!-- user can put in the pet's name and it is required -->
+	    <label for="firstName">Name</label></br>
+		<input type="text" name="firstName" class="form-control" id="firstName" ng-model="firstname" placeholder="your pet's first name" required>
+		<!-- shows the error message if the field is left blank after touching it -->
+		<p ng-model="noFastName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your pet's name.</p>
+
+		   
+
+
+
+		<!-- user can put in breed of the pet and it is required --> 
+		<label for="breed">Breed</label></br>
+		<input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="breed" required>
+		<!-- shows the error message if the field is left blank after touching it -->
+		<p ng-model="noBreed" class="help-block" ng-show="(profileform.breed.$error.required && profileform.breed.$touched) || (profileform.breed.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's breed.</p>
+
+
+
+		<!-- user can put in the pet's gender and it is required --> 
+		<label for="lastName">Gender</label></br>
+		<input type="radio" name="gender" value="Male"> Male
+		<input type="radio" name="gender" value="Female"> Female
+		<input type="radio" name="gender" value="Other"> Other</br>
+
+
+
+		<!-- user should put in their birthdate -->
+		<label for="birthdate" id="birthLabel">Birthdate</label>
+		<input type="text" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="birthdate" ng-change="checkBirth()" required>
+		<!-- display required message if user didn't enter a valid birth date -->
+		<p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
+		<p class="help-block"  id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
+		
+
+
+		<!-- user can type in their bio and it is optional  -->
+		<label for="description">Description</label>
+  		<input type="description" name="description" class="form-control" id="description" placeholder="a little thing about your pet"></br>
+	</div>
+
+
+	<!-- submit the form and display a success message when clicked -->
+	<button type="submit" class="btn btn-default" id="submitBtn" ng-disabled="profileform.$invalid" ng-click="showMessage()"> Save </button>
+</form>

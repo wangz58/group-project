@@ -14,9 +14,19 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			controller: 'SignupCtrl'
 		})	
 		.state('discussion', {
-			url: '/discussion', // bean id for each type of bean in order page
+			url: '/discussion', 
 			templateUrl: 'partials/discussion.html',
 			controller: 'DiscussionCtrl'
+		})
+		.state('makePost', {
+		    url: '/makePost',
+			templateUrl: 'partials/makePost.html',
+			controller: 'makePostCtrl'	
+		})
+		.state('posts', {
+		    url: '/posts',
+			templateUrl: 'partials/posts.html',
+			controller: 'postsCtrl'	
 		})
 })
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
@@ -24,18 +34,20 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 }])
 .controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth',function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 	
-	var ref = new Firebase('https://pet-app.firebaseio.com/');
+	var ref = new Firebase('https://pet-app.firebaseio.com');
 
-	var userRef = ref.child('users');
+	var usersRef = ref.child('users');
+	console.log(usersRef);
 
-	$scope.users = $firebaseObject('userRef');
+	$scope.users = $firebaseObject(usersRef);
 
 	var Auth = $firebaseAuth(ref);
+
 	$scope.newUser = {};
 
 	$scope.signup = function() {
-		console.log('signing up ');
-	}
+
+	};
 
 	$scope.compareTo = function() {
 		console.log($scope.newUser.password);
@@ -49,5 +61,22 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	};
 	$scope.reset = function() {
 		location.reload();
+	};
+}])
+.controller('makePostCtrl', ['$scope', '$http', function($scope, $http) {
+	
+}])
+.controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
+
+    $("file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+	function imageIsLoaded(e) {
+    $('#myImg').attr('src', e.target.result);
 	};
 }])
