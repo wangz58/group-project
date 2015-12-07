@@ -21,8 +21,7 @@
 	display: inline-block;
 }
 #post {
-	background-color: #FEF9E6;
-
+	background-color: #B6AAA1;
 }
 #pageTitle{
 	text-align: center;
@@ -70,9 +69,7 @@ footer {
 #right {
 	float: right;
 }
-#signup {
-	float: right;
-}
+
 #postImage {
 	float: left;
 	margin-right: 20px;
