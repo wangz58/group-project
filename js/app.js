@@ -22,12 +22,26 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
-.controller('SignupCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth',function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+	
+	var ref = new Firebase('https://pet-app.firebaseio.com/');
+
+	var userRef = ref.child('users');
+
+	$scope.users = $firebaseObject('userRef');
+
+	var Auth = $firebaseAuth(ref);
+	$scope.newUser = {};
+
+	$scope.signup = function() {
+		console.log('signing up ');
+	}
+
 	$scope.compareTo = function() {
-		console.log($scope.password);
-		console.log($scope.confirmPassword);
+		console.log($scope.newUser.password);
+		console.log($scope.newUser.confirmPassword);
 		//check whether the password and confirm password are empty and whether they are the same.
-		if ($scope.password != null && $scope.confirmPassword != null && $scope.password === $scope.confirmPassword) {
+		if ($scope.newUser.password != null && $scope.newUser.confirmPassword != null && $scope.newUser.password === $scope.newUser.confirmPassword) {
 			return true;
 		} else {
 			return false;
@@ -36,9 +50,4 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.reset = function() {
 		location.reload();
 	};
-	$scope.submit = function() {
-
-
-
-	}
 }])
