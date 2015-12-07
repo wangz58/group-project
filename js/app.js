@@ -3,6 +3,9 @@
 angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .config(function($stateProvider){
 	$stateProvider
+		.state('index', {
+
+		})
 		.state('home', {
 			url: '/', //"root" directory
 			templateUrl: 'partials/home.html',
@@ -32,7 +35,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
-.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth',function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 	
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
@@ -44,6 +47,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	var Auth = $firebaseAuth(ref);
 
 	$scope.newUser = {};
+
+	$scope.correctM = false;
+	$scope.errorM = false;
 
 	$scope.submit = function() {
 		console.log("signing up: " + $scope.newUser.emailAddress);
@@ -59,17 +65,17 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			return promise;
       	})
       	.then(function(authData) {
-      		if ($scope.newUser.phoneNumber == null) {
+      		if (!$scope.newUser.phoneNumber) {
       			$scope.newUser.phoneNumber = '';
       		};
 
-      		if ($scope.newUser.career == null) {
+      		if (!$scope.newUser.career) {
       			$scope.newUser.career = '';
       		}
 
       		var newUserInfo = {
       			'name': $scope.newUser.customerName,
-      			'phonenumber': $scope.newUser.phonenumber,
+      			'phonenumber': $scope.newUser.phoneNumber,
       			'career': $scope.newUser.career,
       			'streetaddress': $scope.newUser.streetAddress,
       			'city': $scope.newUser.city,
@@ -80,7 +86,12 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		$scope.users[authData.uid] = newUserInfo;
 
       		$scope.users.$save();
-      	}).catch(function(error) {
+      	})
+      	.then(function() {
+  			$scope.correctM = true;
+      	})
+      	.catch(function(error) {
+      		$scope.errorM = true;
       		console.log(error);
       	})
 	};
