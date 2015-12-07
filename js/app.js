@@ -128,6 +128,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
-
+.controller('ProfileCtrl', ['$scope', '$http', function($scope, $http) {
+	
+}])
 
 
