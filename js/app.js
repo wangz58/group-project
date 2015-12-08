@@ -190,4 +190,3 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('EditCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
-

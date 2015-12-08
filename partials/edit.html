@@ -5,7 +5,7 @@
         <form name="profileform" id="profileForm" nonvalidate>
             <h1> Edit My Profile </h1> Profile Picture:
             <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" required>
-            <i ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</i>
+            <p ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</p>
             <br/>
             <img ngf-src="picFile" class="thumb" height='150px'>
             <br/>
