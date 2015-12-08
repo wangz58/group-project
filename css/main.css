@@ -44,7 +44,7 @@ body {
 	font-size: 25px;
 }
 
-label {
+label, p, textarea{
 	font-size: 20px;
 }
 .nav.navbar-nav li a:hover {
@@ -72,9 +72,28 @@ footer {
 }
 
 #postImage {
-	float: left;
 	margin-right: 20px;
+	max-width:100%;
+    max-height:100%;
+    position: relative;
 }
+#postInfo {
+	padding: 0 0 0 500px; /* 75px being the width of the thumbnail + how much space you want to put between it and your text */
+	position: relative;
+}
+
+#salary {
+	width: 200px;
+	float: left;
+	margin-right: 10px;
+}
+#postbutton {
+	display: block;
+	margin-top: 50px;
+}
+
+
+
 
 
 
