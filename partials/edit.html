@@ -6,10 +6,9 @@
             <h1> Edit My Profile </h1> 
 
             Profile Picture:
-            <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" required>
+            <input type="file" name="file" ng-change="readURL(this)" accept="image/gif, image/jpeg, image/png" required>
+            <img id="myImg" src="imgSrc" alt="Your image" width=100 height=100>
             <p ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</p>
-            <br/>
-            <img ngf-src="picFile" class="thumb" height='150px'>
             <br/>
             <button ng-click="uploadPic(picFile)">Submit</button>
             <span class="progress" ng-show="picFile.progress >= 0">

@@ -208,33 +208,45 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var Name = singleUser.child('customername').on('value', function(snapshot) {
 				$scope.Name = snapshot.val();
 			});
-			var gender = singleUser.child('customergender').on('value', function(snapshot) {
+			var gender = singleUser.child('gender').on('value', function(snapshot) {
 				$scope.gender = snapshot.val();
 			});
-			var phonenum = singleUser.child('customerphonenum').on('value', function(snapshot) {
-				$scope.phonenum = snapshot.val();
-			});
-			var street = singleUser.child('customerstreet').on('value', function(snapshot) {
-				$scope.street = snapshot.val();
-			});
-			var city = singleUser.child('customercity').on('value', function(snapshot) {
-				$scope.city = snapshot.val();
-			});
-			var state = singleUser.child('customerstate').on('value', function(snapshot) {
-				$scope.state = snapshot.val();
-			});
-			var postcode = singleUser.child('customerpostcode').on('value', function(snapshot) {
-				$scope.postcode = snapshot.val();
-			});
-			var email = singleUser.child('customeremail').on('value', function(snapshot) {
+			var email = singleUser.child('career').on('value', function(snapshot) {
 				$scope.email = snapshot.val();
 			});
+			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
+				$scope.phonenum = snapshot.val();
+			});
+			var street = singleUser.child('streetaddress').on('value', function(snapshot) {
+				$scope.street = snapshot.val();
+			});
+			var city = singleUser.child('city').on('value', function(snapshot) {
+				$scope.city = snapshot.val();
+			});
+			var state = singleUser.child('state').on('value', function(snapshot) {
+				$scope.state = snapshot.val();
+			});
+			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
+				$scope.postcode = snapshot.val();
+			});
+		};
+	};
+
+	//$scope.imgSrc = '#';
+
+	/*$scope.readURL = function(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(i) {
+				$scope.imgSrc = i.target.result
+			};
+
+			reader.readAsDataURL(input.files[0]);
 		}
-	}
+	}*/
 
 }])
-
-
 .controller('EditCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
