@@ -289,8 +289,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var gender = singleUser.child('gender').on('value', function(snapshot) {
 				$scope.gender = snapshot.val();
 			});
-			var email = singleUser.child('career').on('value', function(snapshot) {
-				$scope.email = snapshot.val();
+			var career = singleUser.child('career').on('value', function(snapshot) {
+				$scope.career = snapshot.val();
 			});
 			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
 				$scope.phonenum = snapshot.val();
@@ -325,6 +325,49 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	}*/
 
 }])
-.controller('EditCtrl', ['$scope', '$http', function($scope, $http) {
+
+.controller('EditCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var usersRef = ref.child('users');
+	console.log(usersRef);
+
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+
+	var authData = Auth.$getAuth();
+
+	if (authData) {
+		$scope.userId = authData.uid;
+		if ($scope.userId) {
+			var singleUser = usersRef.child($scope.userId);
+			var Name = singleUser.child('customername').on('value', function(snapshot) {
+				$scope.Name = snapshot.val();
+			});
+			var gender = singleUser.child('gender').on('value', function(snapshot) {
+				$scope.gender = snapshot.val();
+			});
+			var career = singleUser.child('career').on('value', function(snapshot) {
+				$scope.career = snapshot.val();
+			});
+			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
+				$scope.phonenum = snapshot.val();
+			});
+			var street = singleUser.child('streetaddress').on('value', function(snapshot) {
+				$scope.street = snapshot.val();
+			});
+			var city = singleUser.child('city').on('value', function(snapshot) {
+				$scope.city = snapshot.val();
+			});
+			var state = singleUser.child('state').on('value', function(snapshot) {
+				$scope.state = snapshot.val();
+			});
+			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
+				$scope.postcode = snapshot.val();
+			});
+		};
+	};
 	
 }])
