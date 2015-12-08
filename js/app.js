@@ -46,6 +46,37 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
+.controller('NavbarCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var usersRef = ref.child('users');
+	
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+	
+	var authData = Auth.$getAuth();
+
+	console.log(authData);
+	console.log($scope.userId);
+
+	if (authData) {
+		$scope.userId = authData.uid;
+		console.log($scope.userId);
+		if ($scope.userId) {
+			var singleRef = usersRef.child($scope.userId);
+			var findUsername = singleRef.child('customername').on('value', function(snapshot) {
+				$scope.username = snapshot.val();
+			});
+		};
+	};
+
+
+	$scope.logOut = function() {
+		Auth.$unauth();
+		location.reload();
+	};
+}])
 .controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 	
 	var ref = new Firebase('https://pet-app.firebaseio.com');
@@ -85,7 +116,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		}
 
       		var newUserInfo = {
-      			'name': $scope.newUser.customerName,
+      			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
       			'career': $scope.newUser.career,
       			'streetaddress': $scope.newUser.streetAddress,
@@ -131,5 +162,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('ProfileCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
-
+.controller('EditCtrl', ['$scope', '$http', function($scope, $http) {
+	
+}])
 
