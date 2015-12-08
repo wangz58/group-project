@@ -251,12 +251,19 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		.catch(function(error) {
 			$scope.errorM = true;
 			console.log(error);
-		})
+		});
 	}
 
 }])
-.controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('postsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', function($scope, $http, $firebaseObject, $firebaseArray) {
 
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var postsRef = ref.child('posts');
+	var usersRef = ref.child('users');
+
+	$scope.posts = $firebaseArray(postsRef);
+	$scope.users = $firebaseObject(usersRef);
 }])
 
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
