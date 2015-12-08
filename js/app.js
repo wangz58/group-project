@@ -31,7 +31,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			templateUrl: 'partials/edit.html',
 			controller: 'EditCtrl'
 		})
-		
 		.state('makePost', {
 		    url: '/makePost',
 			templateUrl: 'partials/makePost.html',
@@ -43,10 +42,33 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			controller: 'postsCtrl'	
 		})
 })
-.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('HomeCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var usersRef = ref.child('users');
 	
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+
+	$scope.errorM = false;
+
+	$scope.signIn = function() {
+		Auth.$authWithPassword({
+			'email': $scope.emailAddress,
+			'password': $scope.passcode
+		})
+		.then(function() {
+			$location.path('posts');	
+			location.reload();	
+		})
+		.catch(function(error) {
+			$scope.errorM = true;
+			console.log(error)
+		});
+	};
 }])
-.controller('NavbarCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+.controller('NavbarCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location',function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
 	var usersRef = ref.child('users');
@@ -71,13 +93,14 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		};
 	};
 
-
 	$scope.logOut = function() {
 		Auth.$unauth();
+
+		$location.path('posts');
 		location.reload();
 	};
 }])
-.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
 	
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
@@ -131,6 +154,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       	})
       	.then(function() {
   			$scope.correctM = true;
+  			$location.path('profile');
+  			location.reload();
       	})
       	.catch(function(error) {
       		$scope.errorM = true;
