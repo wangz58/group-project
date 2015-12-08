@@ -3,25 +3,22 @@
 
 <h1>My Profile </h1>
 <p>  <a ui-sref="edit"> Edit Profile</a> </br>
-<img class="pic" src="img/girl.jpg" alt="girl picture">
+
 <form name="profileform" id="profileForm" nonvalidate>
 	<div class="form-group">
 		<!-- user information -->
-		<label for="firstName">First Name:</label></br>
-		<label for="lastName">Last Name:</label></br>
-		<label for="lastName">Gender:</label></br>
-		<label for="phonenum">Phone Number:</label></br>
-        <label for="street">Street Address:</label></br>
-		<label for="city">City:</label></br>
-		<label for="state"> State:</label></br>
-		<label for="postcode">Post Code:</label></br>
-		<label for="email">Email:</label></br>
-		<label for="bio">Add your bio:</label></br>
+		<label for="name">Name: {{Name}}</label></br>
+		<label for="gender">Gender: {{gender}}</label></br>
+		<label for="phonenum">Phone Number: {{phonenum}}</label></br>
+        <label for="street">Street Address: {{street}}</label></br>
+		<label for="city">City: {{city}}</label></br>
+		<label for="state"> State: {{state}}</label></br>
+		<label for="postcode">Postal Code: {{postcode}}</label></br>
+		<label for="email">Email: {{email}}</label></br>
 	</div>
 
 
 	<h1> My Pet </h1>
-	<img src="img/cat.jpg" alt="cat picture"></br>
 
 	<div class="form-group">
 		<!-- pet's info -->

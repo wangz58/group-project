@@ -31,7 +31,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			templateUrl: 'partials/edit.html',
 			controller: 'EditCtrl'
 		})
-		
 		.state('makePost', {
 		    url: '/makePost',
 			templateUrl: 'partials/makePost.html',
@@ -43,10 +42,33 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			controller: 'postsCtrl'	
 		})
 })
-.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('HomeCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var usersRef = ref.child('users');
 	
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+
+	$scope.errorM = false;
+
+	$scope.signIn = function() {
+		Auth.$authWithPassword({
+			'email': $scope.emailAddress,
+			'password': $scope.passcode
+		})
+		.then(function() {
+			$location.path('posts');	
+			location.reload();	
+		})
+		.catch(function(error) {
+			$scope.errorM = true;
+			console.log(error)
+		});
+	};
 }])
-.controller('NavbarCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+.controller('NavbarCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location',function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
 	var usersRef = ref.child('users');
@@ -71,13 +93,14 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		};
 	};
 
-
 	$scope.logOut = function() {
 		Auth.$unauth();
+
+		$location.path('posts');
 		location.reload();
 	};
 }])
-.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+.controller('SignupCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
 	
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
@@ -115,7 +138,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       			$scope.newUser.career = '';
       		}
 
+      		console.log($scope.newUser.sex);
+
       		var newUserInfo = {
+      			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
       			'career': $scope.newUser.career,
@@ -131,6 +157,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       	})
       	.then(function() {
   			$scope.correctM = true;
+  			$location.path('profile');
+  			location.reload();
       	})
       	.catch(function(error) {
       		$scope.errorM = true;
@@ -169,10 +197,66 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
-.controller('ProfileCtrl', ['$scope', '$http', function($scope, $http) {
+
+.controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 	
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var usersRef = ref.child('users');
+	console.log(usersRef);
+
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+
+	var authData = Auth.$getAuth();
+
+	if (authData) {
+		$scope.userId = authData.uid;
+		if ($scope.userId) {
+			var singleUser = usersRef.child($scope.userId);
+			var Name = singleUser.child('customername').on('value', function(snapshot) {
+				$scope.Name = snapshot.val();
+			});
+			var gender = singleUser.child('gender').on('value', function(snapshot) {
+				$scope.gender = snapshot.val();
+			});
+			var email = singleUser.child('career').on('value', function(snapshot) {
+				$scope.email = snapshot.val();
+			});
+			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
+				$scope.phonenum = snapshot.val();
+			});
+			var street = singleUser.child('streetaddress').on('value', function(snapshot) {
+				$scope.street = snapshot.val();
+			});
+			var city = singleUser.child('city').on('value', function(snapshot) {
+				$scope.city = snapshot.val();
+			});
+			var state = singleUser.child('state').on('value', function(snapshot) {
+				$scope.state = snapshot.val();
+			});
+			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
+				$scope.postcode = snapshot.val();
+			});
+		};
+	};
+
+	//$scope.imgSrc = '#';
+
+	/*$scope.readURL = function(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(i) {
+				$scope.imgSrc = i.target.result
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}*/
+
 }])
 .controller('EditCtrl', ['$scope', '$http', function($scope, $http) {
 	
 }])
-

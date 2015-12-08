@@ -24,6 +24,11 @@
 		<p class="help-block" ng-show="signupform.phonenum.$error.minlength || signupform.phonenum.$error.maxlength">Please give a correct phone number.</p>
 
 		<input class="form-control" id="career" name="career" type="text" placeholder="career" ng-model="newUser.career"><br>
+
+		<label for="sex">Gender:      </label>
+		<input type="radio" name="sex" value="male" ng-model="newUser.sex" required>    Male
+		<input type="radio" name="sex" value="female" ng-model="newUser.sex" required>    Female<br>
+
 		<input class="form-control" id="streetAdd" name="streetadd" type="text" ng-model="newUser.streetAddress" placeholder="street address" required>
 		<p class="help-block" ng-show="(signupform.streetadd.$error.required && signupform.streetadd.$touched) || (signupform.streetadd.$error.required && !signupform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p><br>
 

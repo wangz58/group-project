@@ -1,5 +1,9 @@
 <div class="form-group" id="signIn" ng-controller="HomeCtrl">
 	<h1>FIND YOUR PET A TEMPORARY HOME!</h1>
+	<div class="alert alert-warning" role="alert" ng-show="errorM">
+		Your email address or password is incorrect.
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>		
 	<form id="signInForm" name="signinform" nonvalidate>
 
 		<input class="form-control" id="email" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
@@ -10,7 +14,7 @@
 		<input class="form-control" id="password" name="password" type="password" placeholder="Password" ng-model="passcode" required>
 		<p class="help-block" ng-show="(signinform.password.$error.required && signinform.password.$touched) || (signinform.password.$error.required && !signinform.password.$pristine)" class="help-block">Password required!</p></br>
 
-		<button class="btn btn-default" ng-disabled="signinform.$invalid" ng-click="signIn">Sign In</button>
+		<button class="btn btn-default" ng-disabled="signinform.$invalid" ng-click="signIn()">Sign In</button>
 		<a ui-sref="signup"><button class="btn btn-default">Sign Up</button></a>
 		
 	</form>
