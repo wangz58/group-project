@@ -1,19 +1,35 @@
-<h1 id='makePostTitle'> Make a post </h1>
-<form name="makePostForm" id="makePostForm" nonvalidate>
-    <div class="form-group">
-      <label for="daterange">Choose starting and ending time:</label></br>
-      <input type="text" class="form-control" id="daterange" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM" />
-    </div>
-    <div class="form-group">
-      <label for="salary">Total payment:</label></br>
-      <input type="text" class="form-control" id="salary" name='salary' ng-model="salary" required>
-      <p> dollars</p>
-      <p ng-model="salaryBlank" class="help-block" ng-show="(makePostForm.salary.$error.required && makePostForm.salary.$touched) || (makePostForm.salary.$error.required && !makePostForm.salary.$pristine)">Please tell us the possible payment you can afford to find a pet helper!</p>
-    </div>
-    <div class="form-group">
-        <label for="why">Things you want to say to potential pet helper:</label>
-        <textarea type="text" class="form-control" id="why" name='why' ng-model='why' required></textarea>
-        <p ng-model="whyBlank" class="help-block" ng-show="(makePostForm.why.$error.required && makePostForm.why.$touched) || (makePostForm.why.$error.required && !makePostForm.why.$pristine)">Please tell us anything, you could talk about why you need a helper or personality of your pet!</p>
-    </div>
-    <button type="submit" id="postbutton" class="btn btn-primary">Post</button></br>
-</form>
+<div class="form-group" ng-controller="makePostCtrl">
+    <h1 id='makePostTitle'> Make a post </h1>
+	<div class="alert alert-success" role="alert" ng-show="!hasPet">
+		It seems that you don't have a pet right now. Please add a pet to your profile.
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	<div class="alert alert-success" role="alert" ng-show="errorM">
+		Opps, something is wrong.
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	<form name="makePostForm" id="makePostForm" nonvalidate>
+		<div>
+	      <label for="daterange">Choose starting and ending time:</label></br>
+	      <input type="text" class="form-control" id="daterange" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM" ng-model="dateRange">
+	    </div>
+	    <div class="form-group">
+	      <label for="salary">Total payment:</label></br>
+	      <input type="text" class="form-control" id="salary" name='salary' ng-model="salary" required>
+	      <p> dollars</p>
+	      <p ng-model="salaryBlank" class="help-block" ng-show="(makePostForm.salary.$error.required && makePostForm.salary.$touched) || (makePostForm.salary.$error.required && !makePostForm.salary.$pristine)">Please tell us the possible payment you can afford to find a pet helper!</p>
+	    </div>
+	    <div class="form-group">
+	        <label for="why">Things you want to say to potential pet helper:</label>
+	        <textarea type="text" class="form-control" id="why" name="why" ng-model="why" required></textarea>
+	        <p ng-model="whyBlank" class="help-block" ng-show="(makePostForm.why.$error.required && makePostForm.why.$touched) || (makePostForm.why.$error.required && !makePostForm.why.$pristine)">Please tell us anything, you could talk about why you need a helper or personality of your pet!</p>
+	    </div>
+	    <div>
+	      <label for="contact">Your contact info:</label></br>
+	      <input type="text" class="form-control" id="contact" name="contacte" ng-model="contact" required>
+	      <p ng-model="contactBlank" class="help-block" ng-show="(makePostForm.contact.$error.required && makePostForm.contact.$touched) || (makePostForm.contact.$error.required && !makePostForm.contact.$pristine)">Please tell us your phone number or email address so that people can contact you!</p>
+	    </div>
+
+	    <button type="submit" id="postbutton" class="btn btn-primary" ng-click="postIt()" ng-disabled="makePostForm.$invalid || !hasPet">Post</button></br>
+	</form>
+</div>

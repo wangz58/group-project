@@ -181,7 +181,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	};
 	
 }])
-.controller('makePostCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('makePostCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $firebaseArray, $location) {
 	$('input[name="daterange"]').daterangepicker();
 	$(function() {
 	    $('input[name="daterange"]').daterangepicker({
@@ -192,6 +192,67 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	        }
 	    });
     });	
+
+	var ref = new Firebase('https://pet-app.firebaseio.com');
+
+	var postsRef = ref.child('posts');
+	var usersRef = ref.child('users');
+
+	$scope.posts = $firebaseArray(postsRef);
+	$scope.users = $firebaseObject(usersRef);
+
+	var Auth = $firebaseAuth(ref);
+
+	var authData = Auth.$getAuth();
+
+	if (authData) {
+		$scope.userId = authData.uid;
+		var singleUser = usersRef.child($scope.userId);
+		var petRef = singleUser.child('pet');
+		if (petRef) {
+			var Name = pet.child('name').on('value', function(snapshot) {
+				$scope.Name = snapshot.val();
+			});
+			var gender = pet.child('gender').on('value', function(snapshot) {
+				$scope.gender = snapshot.val();
+			});
+			var postcode = pet.child('age').on('value', function(snapshot) {
+				$scope.age = snapshot.val();
+			});
+			var postcode = pet.child('breed').on('value', function(snapshot) {
+				$scope.breed = snapshot.val();
+			});
+			$scope.hasPet = false;
+		} else {
+			$scope.hasPet = true;
+		}
+	};
+
+	$scope.errorM = false;
+
+	$scope.postIt = function() {
+		$scope.posts.$add({
+			'petowner': $scope.userId,
+			'petname': $scope.Name,
+			'petbreed': $scope.breed,
+			'petage': $scope.age,
+			'petgender': $scope.gender,
+			'daterange': $scope.dateRange,
+			'totalpayment': $scope.salary,
+			'reason': $scope.why,
+			'contactinfo':$scope.contact,
+			'posttime': Firebase.ServerValue.TIMESTAMP
+		})
+		.then(function() {
+			$scope.errorM = false;
+			$location.path('posts');
+			location.reload();
+		})
+		.catch(function(error) {
+			$scope.errorM = true;
+			console.log(error);
+		})
+	}
 
 }])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
