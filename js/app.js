@@ -154,7 +154,17 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	
 }])
 .controller('makePostCtrl', ['$scope', '$http', function($scope, $http) {
-	
+	$('input[name="daterange"]').daterangepicker();
+	$(function() {
+	    $('input[name="daterange"]').daterangepicker({
+	        timePicker: true,
+	        timePickerIncrement: 30,
+	        locale: {
+	            format: 'MM/DD/YYYY h:mm A'
+	        }
+	    });
+    });	
+
 }])
 .controller('postsCtrl', ['$scope', '$http', function($scope, $http) {
 
