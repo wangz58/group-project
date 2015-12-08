@@ -138,7 +138,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       			$scope.newUser.career = '';
       		}
 
+      		console.log($scope.newUser.sex);
+
       		var newUserInfo = {
+      			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
       			'career': $scope.newUser.career,
