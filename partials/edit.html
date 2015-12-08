@@ -21,11 +21,11 @@
         <form name="profileform" id="profileForm" nonvalidate>
             <div class="form-group">
 
-                <!-- user can put in the first name and it is required -->
+                <!-- user can put in the  name and it is required -->
                 <label for="name">Name</label>
-                <input type="text" name="Name" class="form-control" id="Name" ng-model="name" placeholder="your name" required>
+                <input type="text" name="name" class="form-control" id="name" ng-model="name" placeholder="your name" required>
                 <!-- shows the error message if the field is left blank after touching it -->
-                <p ng-model="noFastName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your name.</p></br>
+                <p ng-model="noName" class="help-block" ng-show="(profileform.name.$error.required && profileform.name.$touched) || (profileform.name.$error.required && !profileform.name.$pristine)" class="help-block">We need to know your name.</p></br>
                 
                 <label for="gender">Gender</label>
                 
