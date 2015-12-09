@@ -280,9 +280,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
         $scope.userId = authData.uid;
         if ($scope.userId) {
             $scope.myprofile = $firebaseObject(usersRef.child($scope.userId));
-            $scope.petprofile = $firebaseObject(usersRef.child($scope.userId).child('pet'));
-            if ($scope.petprofile) {
-
+            if (usersRef.child($scope.userId).child('pet')) {
+            	$scope.petprofile = $firebaseObject(usersRef.child($scope.userId).child('pet'));
             }
         }
     }
