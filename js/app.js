@@ -253,148 +253,82 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			$scope.errorM = true;
 			console.log(error);
 		});
-	}
-
+	};
 }])
-.controller('postsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', function($scope, $http, $firebaseObject, $firebaseArray) {
+.controller('postsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+    var ref = new Firebase('https://pet-app.firebaseio.com');
 
-	var ref = new Firebase('https://pet-app.firebaseio.com');
+    var usersRef = ref.child('users');
+    var postsRef = ref.child('posts');
 
-	var postsRef = ref.child('posts');
-	var usersRef = ref.child('users');
+    var Auth = $firebaseAuth(ref);
 
-	$scope.posts = $firebaseArray(postsRef);
-	$scope.users = $firebaseObject(usersRef);
+    var authData = Auth.$getAuth();	
 }])
-
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
-	
-	var ref = new Firebase('https://pet-app.firebaseio.com');
 
-	var usersRef = ref.child('users');
-	console.log(usersRef);
+    var ref = new Firebase('https://pet-app.firebaseio.com');
 
-	$scope.users = $firebaseObject(usersRef);
+    var usersRef = ref.child('users');
+    var postsRef = ref.child('posts');
 
-	var Auth = $firebaseAuth(ref);
+    var Auth = $firebaseAuth(ref);
 
-	var authData = Auth.$getAuth();
+    var authData = Auth.$getAuth();
 
-	if (authData) {
-		$scope.userId = authData.uid;
-		if ($scope.userId) {
-			var singleUser = usersRef.child($scope.userId);
-			var Name = singleUser.child('customername').on('value', function(snapshot) {
-				$scope.Name = snapshot.val();
-			});
-			var gender = singleUser.child('gender').on('value', function(snapshot) {
-				$scope.gender = snapshot.val();
-			});
-			var career = singleUser.child('career').on('value', function(snapshot) {
-				$scope.career = snapshot.val();
-			});
-			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
-				$scope.phonenum = snapshot.val();
-			});
-			var street = singleUser.child('streetaddress').on('value', function(snapshot) {
-				$scope.street = snapshot.val();
-			});
-			var city = singleUser.child('city').on('value', function(snapshot) {
-				$scope.city = snapshot.val();
-			});
-			var state = singleUser.child('state').on('value', function(snapshot) {
-				$scope.state = snapshot.val();
-			});
-			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
-				$scope.postcode = snapshot.val();
-			});
+    if (authData) {
+        $scope.userId = authData.uid;
+        if ($scope.userId) {
+            $scope.myprofile = $firebaseObject(usersRef.child($scope.userId));
+            $scope.petprofile = $firebaseObject(usersRef.child($scope.userId).child('pet'));
+            if ($scope.petprofile) {
 
-			var pet = singleUser.child('pet');
+            }
+        }
+    }
 
-			if (pet) {
-				var petName = pet.child('petname').on('value', function(snapshot) {
-					$scope.petName = snapshot.val();
-				});
-				var petBreed = pet.child('petbreed').on('value', function(snapshot) {
-					$scope.petBreed = snapshot.val();
-				});
-				var petAge = pet.child('petage').on('value', function(snapshot) {
-					$scope.petAge = snapshot.val();
-				});
-				var petGender = pet.child('petgender').on('value', function(snapshot) {
-					$scope.petGender = snapshot.val();
-				});
-				var petSpecies = pet.child('petspecies').on('value', function(snapshot) {
-					$scope.petSpecies = snapshot.val();
-				});
-				var petBirth = pet.child('petbrithday').on('value', function(snapshot) {
-					$scope.petBirth = snapshot.val();
-				});
-				var petDescription = pet.child('petdescription').on('value', function(snapshot) {
-					$scope.petDesctription = snapshot.val();
-				})
-			}
-		};
-	};
+    //$scope.imgSrc = '#';
 
-	//$scope.imgSrc = '#';
+    /*$scope.readURL = function(input) {
+    	if (input.files && input.files[0]) {
+    		var reader = new FileReader();
 
-	/*$scope.readURL = function(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
+    		reader.onload = function(i) {
+    			$scope.imgSrc = i.target.result
+    		};
 
-			reader.onload = function(i) {
-				$scope.imgSrc = i.target.result
-			};
-
-			reader.readAsDataURL(input.files[0]);
-		}
-	}*/
+    		reader.readAsDataURL(input.files[0]);
+    	}
+    }*/
 
 }])
 
-.controller('EditCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
+.controller('EditCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', '$timeout', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location, $timeout) {
+    var ref = new Firebase('https://pet-app.firebaseio.com');
 
-	var ref = new Firebase('https://pet-app.firebaseio.com');
+    var usersRef = ref.child('users');
+    var postsRef = ref.child('posts');
 
-	var usersRef = ref.child('users');
-	console.log(usersRef);
+    var Auth = $firebaseAuth(ref);
 
-	$scope.users = $firebaseObject(usersRef);
+    var authData = Auth.$getAuth();
 
-	var Auth = $firebaseAuth(ref);
+    if (authData) {
+        $scope.userId = authData.uid;
+        if ($scope.userId) {
+            $scope.myprofile = $firebaseObject(usersRef.child($scope.userId));
+            $scope.petprofile = $firebaseObject(postsRef.child($scope.userId));
+        }
+    }
 
-	var authData = Auth.$getAuth();
+    // update the myprofile
+    $scope.updateMyProfile = function() {
+        $scope.myprofile.$save().then(function() {
+            alert("Profile saved!");
+            $location.path('profile');
+        }).catch(function(error) {
+            alert("Error!");
+        });
+    };
 
-	if (authData) {
-		$scope.userId = authData.uid;
-		if ($scope.userId) {
-			var singleUser = usersRef.child($scope.userId);
-			var Name = singleUser.child('customername').on('value', function(snapshot) {
-				$scope.Name = snapshot.val();
-			});
-			var gender = singleUser.child('gender').on('value', function(snapshot) {
-				$scope.gender = snapshot.val();
-			});
-			var career = singleUser.child('career').on('value', function(snapshot) {
-				$scope.career = snapshot.val();
-			});
-			var phonenum = singleUser.child('phonenumber').on('value', function(snapshot) {
-				$scope.phonenum = snapshot.val();
-			});
-			var street = singleUser.child('streetaddress').on('value', function(snapshot) {
-				$scope.street = snapshot.val();
-			});
-			var city = singleUser.child('city').on('value', function(snapshot) {
-				$scope.city = snapshot.val();
-			});
-			var state = singleUser.child('state').on('value', function(snapshot) {
-				$scope.state = snapshot.val();
-			});
-			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
-				$scope.postcode = snapshot.val();
-			});
-		};
-	};
-	
-}])
+}]);
