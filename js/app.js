@@ -141,7 +141,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		console.log($scope.newUser.sex);
 
       		var newUserInfo = {
-      			'picture': css/img/user-no-img.png,
+      			'picture': 'css/img/user-no-img.png',
       			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
@@ -266,9 +266,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
     var authData = Auth.$getAuth();	
 }])
-
-
-
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
     var ref = new Firebase('https://pet-app.firebaseio.com');
@@ -322,42 +319,69 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
             $scope.myprofile = $firebaseObject(usersRef.child($scope.userId));
             if (usersRef.child($scope.userId).child('pet')) {
             	$scope.petprofile = $firebaseObject(usersRef.child($scope.userId).child('pet'));
-        	};
-        };
-    };
+        	} else {
+        		$scope.petprofile = {};
+        	}
+        	console.log($scope.petprofile);
+    	};
+	};
 
+	$scope.newPetName = false;
+
+	$scope.hasPet = function() {
+		$scope.newPetName = true;
+	};
     // update the myprofile
     $scope.updateMyProfile = function() {
+    	console.log($scope.newPetName);
+    	console.log(usersRef.child($scope.userId).child('pet'));
+    	console.log($scope.userId);
+    	var pet = usersRef.child($scope.userId).child('pet').on('value', function(snapshot) {
+    		var hasPet = snapshot.val();
+    		console.log(hasPet);
+       	});
+       	console.log($scope.petprofile.petname);
+    	if ($scope.newPetName && usersRef.child($scope.userId).child('pet')) {
+    		console.log(usersRef.child($scope.userId).child('pet'));
+    		if (!$scope.petprofile.petpicture) {
+    			$scope.petprofile.petpicture = 'css/img/pet-no-img.png';
+    		};
+    		if (!$scope.petprofile.petbreed) {
+    			$scope.petprofile.petbreed = '';
+    		};
+    		if (!$scope.petprofile.petgender) {
+    			$scope.petprofile.petgender = '';
+    		};
+    		if (!$scope.petprofile.petspecies) {
+    			$scope.petprofile.petspecies = '';
+    		};
+    		if (!$scope.petprofile.petbirthday) {
+    			$scope.petprofile.petbirthday = '';
+    		};		    
+    		if (!$scope.petprofile.petdescription) {
+    			$scope.petprofile.petdescription = '';
+    		};
+    		var petInfo = {
+    			'petname': $scope.petprofile.petname,
+    			'petspecies': $scope.petprofile.petspecies,
+    			'petbreed': $scope.petprofile.petbreed,
+    			'petgender': $scope.petprofile.petgender,
+    			'petpicture': $scope.petprofile.petpicture,
+    			'petbirthday': $scope.petprofile.petbirthday,
+    			'petdescription': $scope.petprofile.petdescription
+    		};
+    		console.log(petInfo);	    				
+    		$scope.petprofile = petInfo;
+    		console.log($scope.petprofile);
+    	};
+    	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
-            alert("Profile saved!");
-            $location.path('profile');
+            //alert("Profile saved!");
+            //$location.path('profile');
+            //location.reload();
         }).catch(function(error) {
             alert("Error!");
         });
-    };
-
-
-    var petRef = usersRef.child("petprofile");
-    petRef.update({
-
-    });
-
-    $scope.updateMyPet = function() {
-
-        var petRef = {
-            'name': $scope.newUser.sex,
-            'species': $scope.newUser.customerName,
-            'breed': $scope.newUser.phoneNumber,
-            'gender': $scope.newUser.career,
-            'birthdate': $scope.newUser.streetAddress,
-            'description': $scope.newUser.city,
-        
-
-        $scope.users[authData.uid] = newUserInfo;
-        $scope.users.$save();
-    })
-
-    };
-
+    };    
 
 }]);

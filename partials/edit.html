@@ -9,7 +9,7 @@
         </div>
         <form name="profileform" id="profileForm" nonvalidate>
             Profile Picture:
-            <input type="file" ngf-select ng-model="userImg" name="file" accept="image/*" required>
+            <input type="file" ngf-select ng-model="userImg" name="file" accept="image/*">
             <i ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</i>
             </br>
             <img ngf-src="userImg" ng-show='file' class="thumb" height='150px'>
@@ -27,10 +27,11 @@
                 <p ng-model="noName" class="help-block" ng-show="(profileform.name.$error.required && profileform.name.$touched) || (profileform.name.$error.required && !profileform.name.$pristine)" class="help-block">We need to know your name.</p>
                 </br>
                 <label for="gender">Gender</label>
-                <input type="radio" name="gender" value="Male"> Male
-                <input type="radio" name="gender" value="Female"> Female
-                <input type="radio" name="gender" value="Other"> Other </br>
-                </br>
+                <input type="radio" name="gender" value="Male" ng-model="myprofile.gender" required> Male
+                <input type="radio" name="gender" value="Female" ng-model="myprofile.gender" required> Female
+                <input type="radio" name="gender" value="Other" ng-model="myprofile.gender" required> Other 
+                <p class="help-block=">We need to know your gender</p></br>
+
                 <label for="career">Career</label>
                 <input type="text" name="career" class="form-control" id="career" ng-model="myprofile.career" placeholder="your career">
                 </br>
@@ -38,10 +39,10 @@
                 <label for="phonenum">Phone Number</label>
                 <input class="form-control" id="phoneNum" name="phonenum" type="number" placeholder="phone number" maxlength=10 minlength=10 ng-model="myprofile.phonenumber">
                 <br>
-                <p class="help-block" ng-show="signupform.phonenum.$error.minlength || signupform.phonenum.$error.maxlength">Please give a correct phone number.</p>
+                <p class="help-block" ng-show="profileform.phonenum.$error.minlength || profileform.phonenum.$error.maxlength">Please give a correct phone number.</p>
                 <label for="street">Street Address</label>
                 <input class="form-control" id="streetAdd" name="streetadd" type="text" ng-model="myprofile.streetaddress" placeholder="street address" required>
-                <p class="help-block" ng-show="(signupform.streetadd.$error.required && signupform.streetadd.$touched) || (signupform.streetadd.$error.required && !signupform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p>
+                <p class="help-block" ng-show="(profileform.streetadd.$error.required && profileform.streetadd.$touched) || (profileform.streetadd.$error.required && !profileform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p>
                 <br>
             </div>
             <div class="row">
@@ -49,21 +50,21 @@
                     <label for="city">City</label>
                     <input class="form-control" id="city" name="city" type="text" placeholder="city" ng-model="myprofile.city" required>
                     <br>
-                    <p class="help-block" ng-show="(signupform.city.$error.required && signupform.city.$touched) || (signupform.city.$error.required && !signupform.city.$pristine)">Please tell us the city you live in.</p>
+                    <p class="help-block" ng-show="(profileform.city.$error.required && profileform.city.$touched) || (profileform.city.$error.required && !profileform.city.$pristine)">Please tell us the city you live in.</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <label for="state"> State</label>
                     <input class="form-control" id="state" name="state" type="text" ng-model="myprofile.state" placeholder="state" minlength=2 maxlength=2 required>
                     <br>
-                    <p class="help-block" ng-show="(signupform.state.$error.required && signupform.state.$touched) || (signupform.state.$error.required && !signupform.state.$pristine)">Please tell us the state you live in.</p>
-                    <p class="help-block" ng-show="signupform.state.$error.minlength || signupform.state.$error.maxlength">Please enter the state name in two letters</p>
+                    <p class="help-block" ng-show="(profileform.state.$error.required && profileform.state.$touched) || (profileform.state.$error.required && !profileform.state.$pristine)">Please tell us the state you live in.</p>
+                    <p class="help-block" ng-show="profileform.state.$error.minlength || profileform.state.$error.maxlength">Please enter the state name in two letters</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <label for="postcode">Postal Code</label>
                     <input class="form-control" id="postalCode" name="postalcode" type="text" ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/" placeholder="postal code" ng-model="myprofile.postalcode" required>
                     <br>
-                    <p class="help-block" ng-show="(signupform.postalcode.$error.required && signupform.postalcode.$touched) || (signupform.postalcode.$error.required && !signupform.postalcode.$pristine)">Please provide a postal code.</p>
-                    <p class="help-block" ng-show="signupform.postalcode.$touched && signupform.postalcode.$error.pattern">Please enter a valid postal code.</p>
+                    <p class="help-block" ng-show="(profileform.postalcode.$error.required && profileform.postalcode.$touched) || (profileform.postalcode.$error.required && !profileform.postalcode.$pristine)">Please provide a postal code.</p>
+                    <p class="help-block" ng-show="profileform.postalcode.$touched && profileform.postalcode.$error.pattern">Please enter a valid postal code.</p>
                 </div>
                 
             </div>
@@ -73,45 +74,45 @@
 
 
             <h1> My Pet </h1> Profile Picture:
-            <input type="file" name="file" ng-change="readURL(this)" accept="image/gif, image/jpeg, image/png" ng-model="petImg" required>
+            <input type="file" name="file" ng-change="readURL(this)" accept="image/gif, image/jpeg, image/png" ng-model="petImg">
             <p ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</p>
             </br>
             <div class="form-group">
                 <!-- user can put in the pet's name and it is required -->
-                <label for="firstName">Name</label>
-                <input type="text" name="firstName" class="form-control" id="firstName" ng-model="firstname" placeholder="your pet's first name" required>
+                <label for="petname">Name</label>
+                <input type="text" name="petname" class="form-control" id="petName" ng-model="petprofile.petname" placeholder="your pet's first name" ng-change="hasPet()">
                 <!-- shows the error message if the field is left blank after touching it -->
-                <p ng-model="noFirstName" class="help-block" ng-show="(profileform.firstName.$error.required && profileform.firstName.$touched) || (profileform.firstName.$error.required && !profileform.firstName.$pristine)" class="help-block">We need to know your pet's name.</p>
-                <label for="searchBreed" id="searchBreed">Species</label>
-                <select id="breedChoice" ng-model="breedChoice" required>
-                    <option value="Dogs">Dogs</option>
-                    <option value="Cats">Cats</option>
-                    <option value="Hamsters">Hamsters</option>
-                    <option value="Guinea pigs">Guinea pigs</option>
-                    <option value="Bunnies">Bunnies</option>
-                    <option value="other">Others</option>
+                <p ng-model="noFirstName" class="help-block" ng-show="(profileform.petname.$error.required && profileform.petname.$touched) || (profileform.petname.$error.required && !profileform.petname.$pristine)" class="help-block">We need to know your pet's name.</p>
+                <label for="searchSpecies" id="searchSpecies">Species</label>
+                <select id="speciesChoice" ng-model="searchspecies" ng-change="hasPet">
+                    <option value="Dogs" ng-model="petprofile.petspecies">Dogs</option>
+                    <option value="Cats" ng-model="petprofile.petspecies">Cats</option>
+                    <option value="Hamsters" ng-model="petprofile.petspecies">Hamsters</option>
+                    <option value="Guinea pigs" ng-model="petprofile.petspecies">Guinea pigs</option>
+                    <option value="Bunnies" ng-model="petprofile.petspecies">Bunnies</option>
+                    <option value="other" ng-model="petprofile.petspecies">Others</option>
                 </select>
                 </br>
                 <!-- user can put in breed of the pet and it is required -->
                 <label for="breed">Breed</label>
-                <input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="breed" required>
+                <input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="petprofile.petbreed">
                 <!-- shows the error message if the field is left blank after touching it -->
                 <p ng-model="noBreed" class="help-block" ng-show="(profileform.breed.$error.required && profileform.breed.$touched) || (profileform.breed.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's breed.</p>
                 </br>
                 <!-- user can put in the pet's gender and it is required -->
                 <label for="lastName">Gender</label>
-                <input type="radio" name="gender" value="Male"> Male
-                <input type="radio" name="gender" value="Female"> Female
-                <input type="radio" name="gender" value="Other"> Other</br>
+                <input type="radio" name="gender" value="Male" ng-model="petprofile.petgender"> Male
+                <input type="radio" name="gender" value="Female" ng-model="petprofile.petgender"> Female
+                <input type="radio" name="gender" value="Other" ng-model="petprofile.petgender"> Other</br>
                 <!-- user should put in their birthdate -->
                 <label for="birthdate" id="birthLabel">Birthdate</label>
-                <input type="date" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="birthdate" required>
+                <input type="date" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="petprofile.petbirthday">
                 <!-- display required message if user didn't enter a valid birth date -->
                 <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
                 <p class="help-block" id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
                 <!-- user can type in their bio and it is optional  -->
                 <label for="description">Description</label>
-                <input type="description" name="description" class="form-control" id="description" placeholder="a little thing about your pet">
+                <input type="description" name="description" class="form-control" id="description" placeholder="a little thing about your pet" ng-model="petprofile.petdescription">
                 </br>
             </div>
             <!-- submit the form and display a success message when clicked -->
