@@ -1,34 +1,39 @@
 <!--Profile-->
-
-
 <h1>My Profile </h1>
-<p>  <a ui-sref="edit"> Edit Profile</a> </br>
-
-<form name="profileform" id="profileForm" nonvalidate>
-	<div class="form-group">
-		<!-- user information -->
-		<label for="name">Name: {{Name}}</label></br>
-		<label for="gender">Gender: {{gender}}</label></br>
-		<label for="career">Career: {{career}}</label></br>	
-		<label for="phonenum">Phone Number: {{phonenum}}</label></br>
-        <label for="street">Street Address: {{street}}</label></br>
-		<label for="city">City: {{city}}</label></br>
-		<label for="state"> State: {{state}}</label></br>
-		<label for="postcode">Postal Code: {{postcode}}</label></br>
-	</div>
-
-
-	<h1> My Pet </h1>
-
-	<div class="form-group">
-		<!-- pet's info -->
-	    <label for="firstName">Name:{{Name}}</label></br>
-	    <label for="species">Species:{{Species}}</label></br>
-		<label for="breed">Breed:{{Breed}}</label></br>
-		<label for="lastName">Gender:{{Gender}}</label></br>
-		<label for="birthdate" id="birthLabel">Birthdate:{{Birthday}}</label></br>
-		<label for="description">Description:{{Description}}</label>
-	</div>
-
-</form>
-
+<p> <a ui-sref="edit"> Edit Profile</a> </br>
+    <form name="profileform" id="profileForm" nonvalidate>
+        <div class="form-group">
+            <!-- user information -->
+            <label for="name">Name: {{myprofile.customername}}</label>
+            </br>
+            <label for="gender">Gender: {{myprofile.gender}}</label>
+            </br>
+            <label for="career">Career: {{myprofile.career}}</label>
+            </br>
+            <label for="phonenum">Phone Number: {{myprofile.phonenumber}}</label>
+            </br>
+            <label for="street">Street Address: {{myprofile.streetaddress}}</label>
+            </br>
+            <label for="city">City: {{myprofile.city}}</label>
+            </br>
+            <label for="state"> State: {{myprofile.state}}</label>
+            </br>
+            <label for="postcode">Postal Code: {{myprofile.postalcode}}</label>
+            </br>
+        </div>
+        <h1> My Pet </h1>
+        <div class="form-group">
+            <!-- pet's info -->
+            <label for="firstName">Name:{{Name}}</label>
+            </br>
+            <label for="species">Species:{{Species}}</label>
+            </br>
+            <label for="breed">Breed:{{Breed}}</label>
+            </br>
+            <label for="lastName">Gender:{{Gender}}</label>
+            </br>
+            <label for="birthdate" id="birthLabel">Birthdate:{{Birthday}}</label>
+            </br>
+            <label for="description">Description:{{Description}}</label>
+        </div>
+    </form>
