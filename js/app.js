@@ -141,7 +141,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		console.log($scope.newUser.sex);
 
       		var newUserInfo = {
-      			'picture': "css/img/user-no-img.png",
+      			'picture': css/img/user-no-img.png,
       			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
@@ -337,6 +337,27 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     };
 
 
- 
+    var petRef = usersRef.child("petprofile");
+    petRef.update({
+
+    });
+
+    $scope.updateMyPet = function() {
+
+        var petRef = {
+            'name': $scope.newUser.sex,
+            'species': $scope.newUser.customerName,
+            'breed': $scope.newUser.phoneNumber,
+            'gender': $scope.newUser.career,
+            'birthdate': $scope.newUser.streetAddress,
+            'description': $scope.newUser.city,
+        
+
+        $scope.users[authData.uid] = newUserInfo;
+        $scope.users.$save();
+    })
+
+    };
+
 
 }]);
