@@ -43,6 +43,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		})
 })
 .controller('HomeCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
+
+	$scope.bgimg = "http://www.urdogs.com/wp-content/uploads/2015/08/dog-love-cute-wallpaper-1366x768.jpg";
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
 	var usersRef = ref.child('users');
