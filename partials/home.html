@@ -1,22 +1,22 @@
-
+<div align="center"><img src="http://www.urdogs.com/wp-content/uploads/2015/08/dog-love-cute-wallpaper-1366x768.jpg" id="bg"></div>
 <div class="form-group homePage" id="signIn">
-	<h1>FIND YOUR PET A TEMPORARY HOME!</h1>
+	<h1 id="homeTitle">FIND YOUR PET A TEMPORARY HOME!</h1>
 	<div class="alert alert-warning" role="alert" ng-show="errorM">
 		Your email address or password is incorrect.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	</div>		
 	<form id="signInForm" name="signinform" nonvalidate>
 
-		<input class="form-control" id="email" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
+		<input class="form-control col-xs-12 col-sm-6" id="email" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
   		<!-- shows corresponding error message if the email is blank or invalid -->			
 		<p class="help-block" ng-show="(signinform.email.$error.required && signinform.email.$touched) || (signinform.email.$error.required && !signinform.email.$pristine)">We need to know your email.</p>
 		<p ng-model="invalidEmail" class="help-block" ng-show="signinform.email.$error.email">Not valid email!</p><br>
 
-		<input class="form-control" id="password" name="password" type="password" placeholder="Password" ng-model="passcode" required>
+		<input class="form-control col-xs-12 col-sm-6" id="password" name="password" type="password" placeholder="Password" ng-model="passcode" required>
 		<p class="help-block" ng-show="(signinform.password.$error.required && signinform.password.$touched) || (signinform.password.$error.required && !signinform.password.$pristine)" class="help-block">Password required!</p></br>
 
-		<button class="btn btn-default" ng-disabled="signinform.$invalid" ng-click="signIn()">Sign In</button>
-		<a ui-sref="signup"><button class="btn btn-default">Sign Up</button></a>
+		<button class="btn btn-default homeButton1" ng-disabled="signinform.$invalid" ng-click="signIn()">Sign In</button>
+		<a ui-sref="signup"><button class="btn btn-default homeButton2">Sign Up</button></a>
 		
 	</form>
 </div>
