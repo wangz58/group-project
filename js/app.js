@@ -212,21 +212,18 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		var singleUser = usersRef.child($scope.userId);
 		var petRef = singleUser.child('pet');
 		if (petRef) {
-			var Name = petRef.child('name').on('value', function(snapshot) {
-				$scope.Name = snapshot.val();
+			var Name = petRef.child('petname').on('value', function(snapshot) {
+				$scope.petname = snapshot.val();
 			});
-			var gender = petRef.child('gender').on('value', function(snapshot) {
-				$scope.gender = snapshot.val();
+			var gender = petRef.child('petgender').on('value', function(snapshot) {
+				$scope.petgender = snapshot.val();
 			});
-			var postcode = petRef.child('age').on('value', function(snapshot) {
-				$scope.age = snapshot.val();
+			var breed = petRef.child('petbreed').on('value', function(snapshot) {
+				$scope.petbreed = snapshot.val();
 			});
-			var postcode = petRef.child('breed').on('value', function(snapshot) {
-				$scope.breed = snapshot.val();
-			});
-			$scope.hasPet = false;
-		} else {
 			$scope.hasPet = true;
+		} else {
+			$scope.hasPet = false;
 		}
 	};
 
@@ -235,11 +232,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.postIt = function() {
 		$scope.posts.$add({
 			'petowner': $scope.userId,
-			'petname': $scope.Name,
-			'petbreed': $scope.breed,
-			'petage': $scope.age,
-			'petgender': $scope.gender,
-			'daterange': $scope.dateRange,
+			'petname': $scope.petname,
+			'petbreed': $scope.petbreed,
+			'petgender': $scope.petgender,
+			//'daterange': $scope.dateRange,
 			'totalpayment': $scope.salary,
 			'reason': $scope.why,
 			'contactinfo':$scope.contact,
@@ -261,6 +257,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
     var usersRef = ref.child('users');
     var postsRef = ref.child('posts');
+
+	$scope.posts = $firebaseArray(postsRef);
+	$scope.users = $firebaseObject(usersRef);    
 
     var Auth = $firebaseAuth(ref);
 
