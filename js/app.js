@@ -181,7 +181,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	};
 	
 }])
-.controller('makePostCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $firebaseArray, $location) {
+
+.controller('makePostCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
 	$('input[name="daterange"]').daterangepicker();
 	$(function() {
 	    $('input[name="daterange"]').daterangepicker({
