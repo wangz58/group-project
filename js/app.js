@@ -181,17 +181,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	};
 	
 }])
-.controller('makePostCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $firebaseArray, $location) {
-	$('input[name="daterange"]').daterangepicker();
-	$(function() {
-	    $('input[name="daterange"]').daterangepicker({
-	        timePicker: true,
-	        timePickerIncrement: 30,
-	        locale: {
-	            format: 'MM/DD/YYYY h:mm A'
-	        }
-	    });
-    });	
+.controller('makePostCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth, $location) {
 
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
@@ -205,21 +195,32 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	var authData = Auth.$getAuth();
 
+	$('input[name="daterange"]').daterangepicker();
+	$(function() {
+	    $('input[name="daterange"]').daterangepicker({
+	        timePicker: true,
+	        timePickerIncrement: 30,
+	        locale: {
+	            format: 'MM/DD/YYYY h:mm A'
+	        }
+	    });
+    });
+
 	if (authData) {
 		$scope.userId = authData.uid;
 		var singleUser = usersRef.child($scope.userId);
 		var petRef = singleUser.child('pet');
 		if (petRef) {
-			var Name = pet.child('name').on('value', function(snapshot) {
+			var Name = petRef.child('name').on('value', function(snapshot) {
 				$scope.Name = snapshot.val();
 			});
-			var gender = pet.child('gender').on('value', function(snapshot) {
+			var gender = petRef.child('gender').on('value', function(snapshot) {
 				$scope.gender = snapshot.val();
 			});
-			var postcode = pet.child('age').on('value', function(snapshot) {
+			var postcode = petRef.child('age').on('value', function(snapshot) {
 				$scope.age = snapshot.val();
 			});
-			var postcode = pet.child('breed').on('value', function(snapshot) {
+			var postcode = petRef.child('breed').on('value', function(snapshot) {
 				$scope.breed = snapshot.val();
 			});
 			$scope.hasPet = false;
@@ -307,6 +308,32 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var postcode = singleUser.child('postalcode').on('value', function(snapshot) {
 				$scope.postcode = snapshot.val();
 			});
+
+			var pet = singleUser.child('pet');
+
+			if (pet) {
+				var petName = pet.child('petname').on('value', function(snapshot) {
+					$scope.petName = snapshot.val();
+				});
+				var petBreed = pet.child('petbreed').on('value', function(snapshot) {
+					$scope.petBreed = snapshot.val();
+				});
+				var petAge = pet.child('petage').on('value', function(snapshot) {
+					$scope.petAge = snapshot.val();
+				});
+				var petGender = pet.child('petgender').on('value', function(snapshot) {
+					$scope.petGender = snapshot.val();
+				});
+				var petSpecies = pet.child('petspecies').on('value', function(snapshot) {
+					$scope.petSpecies = snapshot.val();
+				});
+				var petBirth = pet.child('petbrithday').on('value', function(snapshot) {
+					$scope.petBirth = snapshot.val();
+				});
+				var petDescription = pet.child('petdescription').on('value', function(snapshot) {
+					$scope.petDesctription = snapshot.val();
+				})
+			}
 		};
 	};
 
