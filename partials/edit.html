@@ -65,8 +65,13 @@
                     <p class="help-block" ng-show="(signupform.postalcode.$error.required && signupform.postalcode.$touched) || (signupform.postalcode.$error.required && !signupform.postalcode.$pristine)">Please provide a postal code.</p>
                     <p class="help-block" ng-show="signupform.postalcode.$touched && signupform.postalcode.$error.pattern">Please enter a valid postal code.</p>
                 </div>
-                <button type="submit" class="btn btn-default" id="submitBtn" ng-click="updateMyProfile()"> Save Changes</button>
+                
             </div>
+
+
+
+
+
             <h1> My Pet </h1> Profile Picture:
             <input type="file" name="file" ng-change="readURL(this)" accept="image/gif, image/jpeg, image/png" ng-model="petImg" required>
             <p ng-show="profileform.file.$error.required&&profileform.file.$touched">*required</p>
@@ -110,7 +115,7 @@
                 </br>
             </div>
             <!-- submit the form and display a success message when clicked -->
-            <button type="submit" class="btn btn-default" id="submitBtn" ng-disabled="profileform.$invalid" ng-click="submit()"> Save Changes</button>
+            <button type="submit" class="btn btn-default" id="submitBtn" ng-click="updateMyProfile()"> Save Changes</button>
         </form>
     </div>
 </body>
