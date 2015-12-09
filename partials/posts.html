@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="postsCtrl">
 	<label for="searchBreed" id="searchBreed">Species</label>
 	<select id="breedChoice" ng-model="breedChoice">
 		<option value="Dogs">Dogs</option>
@@ -6,24 +6,26 @@
     	<option value="Hamsters">Hamsters</option>
     	<option value="Guinea pigs">Guinea pigs</option>
     	<option value="Bunnies">Bunnies</option>
+    	<option value="Other">Other</option>
+    	<option value="All">All</option>
     </select>
     <input type="text" name="searchPost" id="searchPost" placeholder="Type in a specific breed or pet name" class="form-control" ng-model="query" required>
     <h1 id="pageTitle"> OFFER THEM A TEMPORARY HOME!</h1>
 	<div class="container">
 		<div class="row">
-		    <div id="post"> 
+		    <div id="post" ng-repeat="post in posts"> 
 		        <img id="postImage" class="pull-left" src="http://cache.desktopnexus.com/thumbseg/1070/1070314-bigthumbnail.jpg">
-		        <div id="postInfo">
-			        <p> Name: </p>
-			        <p> Breed: </p>
-			        <p> Age: </p>
-			        <p> Gender: </p>
+		        <div id="postInfo" >
+			        <p> Name: {{post.petowner}}</p>
+			        <p> Breed: {{post.petbreed}}</p>
+			        <p> Age: {{post.petage}}</p>
+			        <p> Gender: {{post.petgender}}</p>
 			        <p> <i>More information about the owner and pet.</i> </p>
-			        <p> needs a temporary home from  to  </p>
-			        <p> Total payment </p>
-			        <p> "I need to go to a business trip for a week, someone please help me out here.Thank you so ooooooo much" </p>
-			        <p> Contact info: </p>
-			        <p> Created at: </p>
+			        <p> needs a temporary home during {{post.daterange}} </p>
+			        <p> Total payment {{post.totalpayment}}</p>
+			        <p> {{post.why}} </p>
+			        <p> Contact info: {{contactinfo}}</p>
+			        <p> Created at: {{post.posttime}}</p>
 			    </div>
 		    </div>
 		</div>
