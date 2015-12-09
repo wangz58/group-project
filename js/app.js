@@ -337,27 +337,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     };
 
 
-    var petRef = usersRef.child("petprofile");
-    petRef.update({
-
-    });
-
-    $scope.updateMyPet = function() {
-
-        var petRef = {
-            'name': $scope.newUser.sex,
-            'species': $scope.newUser.customerName,
-            'breed': $scope.newUser.phoneNumber,
-            'gender': $scope.newUser.career,
-            'birthdate': $scope.newUser.streetAddress,
-            'description': $scope.newUser.city,
-        
-
-        $scope.users[authData.uid] = newUserInfo;
-        $scope.users.$save();
-    })
-
-    };
-
+ 
 
 }]);
