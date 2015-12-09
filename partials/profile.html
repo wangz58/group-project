@@ -1,4 +1,5 @@
 <!--Profile-->
+<img class="image" ng-src="{{myprofile.picture}}"></img>
 <h1>My Profile </h1>
 <p> <a ui-sref="edit"> Edit Profile</a> </br>
     <form name="profileform" id="profileForm" nonvalidate>
@@ -21,6 +22,7 @@
             <label for="postcode">Postal Code: {{myprofile.postalcode}}</label>
             </br>
         </div>
+        <img class="image" src="{{petprofile.picture}}"></img>
         <h1> My Pet </h1>
         <div class="form-group">
             <!-- pet's info -->

@@ -141,6 +141,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		console.log($scope.newUser.sex);
 
       		var newUserInfo = {
+      			'picture': css/img/user-no-img.png,
       			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
