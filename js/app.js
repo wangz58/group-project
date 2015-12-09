@@ -316,9 +316,11 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
         $scope.userId = authData.uid;
         if ($scope.userId) {
             $scope.myprofile = $firebaseObject(usersRef.child($scope.userId));
-            $scope.petprofile = $firebaseObject(postsRef.child($scope.userId));
-        }
-    }
+            if (usersRef.child($scope.userId).child('pet')) {
+            	$scope.petprofile = $firebaseObject(usersRef.child($scope.userId).child('pet'));
+        	};
+        };
+    };
 
     // update the myprofile
     $scope.updateMyProfile = function() {
