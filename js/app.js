@@ -213,6 +213,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	if (authData) {
 		$scope.userId = authData.uid;
 		var singleUser = usersRef.child($scope.userId);
+		var ownerName = singleUser.child('customername').on('value', function(snapshot) {
+			$scope.ownername = snapshot.val();
+		});
 		var petRef = singleUser.child('pet');
 		if (petRef) {
 			var Name = petRef.child('petname').on('value', function(snapshot) {
@@ -224,7 +227,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var breed = petRef.child('petbreed').on('value', function(snapshot) {
 				$scope.petbreed = snapshot.val();
 			});
-			$scope.hasPet = true;
+			var picture = petRef.child('petpicture').on('value', function(snapshot) {
+				$scope.petpicture = snapshot.val();
+			})
+ 			$scope.hasPet = true;
 		} else {
 			$scope.hasPet = false;
 		}
@@ -235,9 +241,11 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.postIt = function() {
 		$scope.posts.$add({
 			'petowner': $scope.userId,
+			'ownername': $scope.ownername,
 			'petname': $scope.petname,
 			'petbreed': $scope.petbreed,
 			'petgender': $scope.petgender,
+			'petpicture': $scope.petpicture,
 			//'daterange': $scope.dateRange,
 			'totalpayment': $scope.salary,
 			'reason': $scope.why,
@@ -346,7 +354,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     	if ($scope.newPetName && usersRef.child($scope.userId).child('pet')) {
     		console.log(usersRef.child($scope.userId).child('pet'));
     		if (!$scope.petprofile.petpicture) {
-    			$scope.petprofile.petpicture = 'css/img/pet-no-img.png';
+    			$scope.petprofile.petpicture = 'css/img/pet-no-img.jpg';
     		};
     		if (!$scope.petprofile.petbreed) {
     			$scope.petprofile.petbreed = '';
@@ -369,7 +377,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     			'petbreed': $scope.petprofile.petbreed,
     			'petgender': $scope.petprofile.petgender,
     			'petpicture': $scope.petprofile.petpicture,
-    			'petbirthday': $scope.petprofile.petbirthday,
+    			'petage': $scope.petprofile.petage,
     			'petdescription': $scope.petprofile.petdescription
     		};
     		console.log(petInfo);	    				
