@@ -203,7 +203,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$(function() {
 	    $('input[name="daterange"]').daterangepicker({
 	        timePicker: true,
-	        timePickerIncrement: 30,
+	        timePickerIncrement: 10,
 	        locale: {
 	            format: 'MM/DD/YYYY h:mm A'
 	        }
