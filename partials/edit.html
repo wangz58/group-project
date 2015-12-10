@@ -105,8 +105,8 @@
                 <input type="radio" name="gender" value="Female" ng-model="petprofile.petgender"> Female
                 <input type="radio" name="gender" value="Other" ng-model="petprofile.petgender"> Other</br>
                 <!-- user should put in their birthdate -->
-                <label for="birthdate" id="birthLabel">Birthdate</label>
-                <input type="date" name="birthdate" class="form-control" id="birthDate" placeholder="xx/xx/xxxx" ng-model="petprofile.petbirthday">
+                <label for="age" id="ageLabel">Age</label>
+                <input type="number" name="age" class="form-control" id="age" placeholder="your pet's age" ng-model="petprofile.petage">
                 <!-- display required message if user didn't enter a valid birth date -->
                 <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
                 <p class="help-block" id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
