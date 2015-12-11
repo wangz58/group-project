@@ -84,13 +84,13 @@
                 <!-- shows the error message if the field is left blank after touching it -->
                 <p ng-model="noFirstName" class="help-block" ng-show="(profileform.petname.$error.required && profileform.petname.$touched) || (profileform.petname.$error.required && !profileform.petname.$pristine)" class="help-block">We need to know your pet's name.</p>
                 <label for="searchSpecies" id="searchSpecies">Species</label>
-                <select id="speciesChoice" ng-model="searchspecies" ng-change="hasPet">
-                    <option value="Dogs" ng-model="petprofile.petspecies">Dogs</option>
-                    <option value="Cats" ng-model="petprofile.petspecies">Cats</option>
-                    <option value="Hamsters" ng-model="petprofile.petspecies">Hamsters</option>
-                    <option value="Guinea pigs" ng-model="petprofile.petspecies">Guinea pigs</option>
-                    <option value="Bunnies" ng-model="petprofile.petspecies">Bunnies</option>
-                    <option value="other" ng-model="petprofile.petspecies">Others</option>
+                <select id="speciesChoice" ng-model="petprofile.petspecies" ng-change="hasPet">
+                    <option value="Dogs">Dogs</option>
+                    <option value="Cats">Cats</option>
+                    <option value="Hamsters">Hamsters</option>
+                    <option value="Guinea pigs">Guinea pigs</option>
+                    <option value="Bunnies">Bunnies</option>
+                    <option value="other">Others</option>
                 </select>
                 </br>
                 <!-- user can put in breed of the pet and it is required -->

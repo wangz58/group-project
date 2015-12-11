@@ -280,6 +280,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     var Auth = $firebaseAuth(ref);
 
     var authData = Auth.$getAuth();	
+
+    $scope.logSelect = function() {
+    	console.log($scope.breedChoice);
+    };
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
@@ -389,11 +393,12 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     		$scope.petprofile = petInfo;
     		console.log($scope.petprofile);
     	};
+    	console.log($scope.petprofile.petspecies);
     	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
             alert("Profile saved!");
-            $location.path('profile');
-            location.reload();
+            //$location.path('profile');
+            //location.reload();
         }).catch(function(error) {
             alert("Error!");
         });

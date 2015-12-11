@@ -1,6 +1,6 @@
 <div ng-controller="postsCtrl">
 	<label for="searchBreed" id="searchBreed">Species</label>
-	<select id="breedChoice" ng-model="breedChoice">
+	<select id="breedChoice" ng-model="breedChoice" ng-change="logSelect()">
 		<option value="Dogs">Dogs</option>
     	<option value="Cats">Cats</option>
     	<option value="Hamsters">Hamsters</option>
