@@ -199,15 +199,15 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	var authData = Auth.$getAuth();
 
-	$('input[name="daterange"]').daterangepicker();
-	$(function() {
-	    $('input[name="daterange"]').daterangepicker({
-	        timePicker: true,
-	        timePickerIncrement: 10,
-	        locale: {
-	            format: 'MM/DD/YYYY h:mm A'
-	        }
-	    });
+	//$('input[name="daterange"]').daterangepicker();
+	//$(function() {
+	    //$('input[name="daterange"]').daterangepicker({
+	        //timePicker: true,
+	        //timePickerIncrement: 10,
+	        //locale: {
+	            //format: 'MM/DD/YYYY h:mm A'
+	        //}
+	    //});
     });
 
 	if (authData) {
@@ -239,6 +239,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.errorM = false;
 
 	$scope.postIt = function() {
+		console.log($scope.daterange);
 		$scope.posts.$add({
 			'petowner': $scope.userId,
 			'ownername': $scope.ownername,
@@ -246,7 +247,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			'petbreed': $scope.petbreed,
 			'petgender': $scope.petgender,
 			'petpicture': $scope.petpicture,
-			//'daterange': $scope.dateRange,
+			'daterange': $scope.daterange,
 			'totalpayment': $scope.salary,
 			'reason': $scope.why,
 			'contactinfo':$scope.contact,
