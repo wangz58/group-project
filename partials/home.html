@@ -10,7 +10,7 @@
 		<div class="row">
 			<input class="form-control col-xs-12 col-sm-6" id="homeemail" name="email" type="email" placeholder="Email" ng-model="emailAddress" required>
 
-			<input class="form-control col-xs-12 col-sm-6" id="password" name="password" type="password" placeholder="Password" ng-model="passcode" required>
+			<input class="form-control col-xs-12 col-sm-6" id="homepassword" name="password" type="password" placeholder="Password" ng-model="passcode" required>
 		</div>
   		<!-- shows corresponding error message if the email is blank or invalid -->			
 		<p class="help-block" ng-show="(signinform.email.$error.required && signinform.email.$touched) || (signinform.email.$error.required && !signinform.email.$pristine)">We need to know your email.</p>

@@ -35,6 +35,7 @@
 	border-radius: 25px;
 	padding: 10px;
 	margin: 15px;
+	margin-bottom: 50px;
 }
 #pageTitle{
 	text-align: center;
@@ -66,12 +67,17 @@ body {
 	color: #BBBAB6;
 	font-size: 25px;
 }
-
+#myNavbar {
+	background-color: #524845 !important;
+	margin-left: -15px;
+	margin-right: -15px;
+}
 label, p, textarea{
 	font-size: 20px;
 }
 #homeTitle {
 	color: white;
+	font-size: 50px;
 }
 .nav.navbar-nav li a:hover, #homeBtn:hover {
 	-webkit-transform: rotate(7deg);
@@ -106,8 +112,8 @@ label, p, textarea{
 
 #postImage {
 	margin-right: 20px;
-	max-width:100%;
-    max-height:100%;
+	width:250px;
+    height:250px;
     position: relative;
     border-radius: 30px;
 }
@@ -131,13 +137,58 @@ label, p, textarea{
 	margin-bottom: 20px;
 	margin-left: 15px;
 }
-#password {
+#description {
+	margin-bottom: 60px;
+}
+#homepassword {
 	width: 470px;
 	margin-bottom: 20px;
+	margin-left: 15px;
 }
 #submitBtn{
 	margin-bottom: 50px;
 }
+#order {
+	margin-bottom: 10px;
+}
+@media screen and (max-width: 768px) {
+	p {
+		font-size: 15px;
+	}
+	#postImage {
+		width:150px;
+	    height:150px;
+	    position: relative;
+	    border-radius: 30px;
+	}
+	.postInfo, #posttime {
+		padding: 0 0 0 170px; /* 75px being the width of the thumbnail + how much space you want to put between it and your text */
+		position: relative;
+	}
+	.nav.navbar-nav li a, #homeBtn{
+		color: #BBBAB6;
+		font-size: 15px;
+	}
+	.nav.navbar-nav li a:hover, #homeBtn:hover {
+		-webkit-transform: rotate(2deg);
+		transform: rotate(2deg);
+		color:white;
+	}
+	.nav.navbar-nav li a:hover, #homeBtn:hover {
+		-webkit-transition: all 0.7s ease;
+		transition: all 0.7s ease;
+	}
+	#wallpaper {
+		display: none;
+	}
+	#homeTitle {
+		font-size: 30px;
+		color: #524845;
+	}
+}
+
+
+
 
 
 
