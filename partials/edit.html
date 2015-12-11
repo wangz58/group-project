@@ -84,12 +84,7 @@
             <!-- shows the error message if the field is left blank after touching it -->
             <p ng-model="noFirstName" class="help-block" ng-show="(profileform.petname.$error.required && profileform.petname.$touched) || (profileform.petname.$error.required && !profileform.petname.$pristine)" class="help-block">We need to know your pet's name.</p>
             
-            <!-- user can put in the pet's species -->
-            <label for="searchSpecies" id="searchSpecies">Species</label>
-            <input type="text" name="species" class="form-control" id="species" placeholder="your pet's species (Dogs, Cats, Hamsters, Guinea pigs, Bunnies, Others)" ng-model="petprofile.petspecies">
-            <!-- shows the error message if the field is left blank after touching it -->
-            <p ng-model="noSpecies" class="help-block" ng-show="(profileform.species.$error.required && profileform.species.$touched) || (profileform.species.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's species.</p>
-            </br>
+            
             <!-- Allow user to search species-->
             <label for="searchSpecies" id="searchSpecies">Species</label>
             <select id="speciesChoice" ng-model="petprofile.petspecies" ng-change="hasPet">
@@ -100,6 +95,11 @@
                 <option value="Bunnies">Bunnies</option>
                 <option value="other">Others</option>
             </select>
+            </br>
+            <!-- user can put in the pet's species -->
+            <input type="text" name="species" class="form-control" id="species" placeholder="your pet's species (Dogs, Cats, Hamsters, Guinea pigs, Bunnies, Others)" ng-model="petprofile.petspecies">
+            <!-- shows the error message if the field is left blank after touching it -->
+            <p ng-model="noSpecies" class="help-block" ng-show="(profileform.species.$error.required && profileform.species.$touched) || (profileform.species.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's species.</p>
             </br>
 
             <!-- user can put in breed of the pet -->
