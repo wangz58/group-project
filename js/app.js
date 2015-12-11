@@ -155,7 +155,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		console.log($scope.newUser.sex);
 
       		var newUserInfo = {
-      			'picture': 'css/img/user-no-img.png',
+      			'picture': 'https://lh3.googleusercontent.com/J1anP6dsCMQM4HgJ5wdAv9zvRDLPV-W1Rw1juE8J0ZMvYuKb-YvbUAZBwdO-l6m_-30=w300',
       			'gender': $scope.newUser.sex,
       			'customername': $scope.newUser.customerName,
       			'phonenumber': $scope.newUser.phoneNumber,
@@ -375,17 +375,11 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
        	});
        	console.log($scope.petprofile.petname);
 
-    	if ($scope.newPetName && usersRef.child($scope.userId).child('pet')) {
+    	if ($scope.newPetName && !usersRef.child($scope.userId).child('pet')) {
     		console.log(usersRef.child($scope.userId).child('pet'));
 			if (!$scope.petprofile.petpicture) {
-    			$scope.petprofile.petpicture = 'css/img/pet-no-img.jpg';
+    			$scope.petprofile.petpicture = 'http://cache1.asset-cache.net/xt/492606186.jpg?v=1&g=fs1%7C0%7CSKP219%7C06%7C186&s=1';
         	};
-			var newUserInfo = {
-          	'image': $scope.petprofile.petpicture,
-          	}
-            $scope.users[authData.uid] = newUserInfo;
-            $scope.users.$save();
-            $scope.userId = authData.uid; //the id of the current user
             if (!$scope.petprofile.petbreed) {
     			$scope.petprofile.petbreed = '';
     		};
