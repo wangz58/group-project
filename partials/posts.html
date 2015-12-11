@@ -13,7 +13,8 @@
     <h1 id="pageTitle"> OFFER THEM A TEMPORARY HOME!</h1>
 	<div class="container">
 		<div class="row">
-		    <div id="post" ng-repeat="post in posts | filter : breedChoice"> 
+			<button type="submit" class="btn btn-primary" ng-click="orderPayment()">Order By: Total Payment</button>
+		    <div id="post" ng-repeat="post in posts | filter : breedChoice | orderBy:-post.posttime:sortPayment"> 
 		        <img id="postImage" class="pull-left" ng-src="{{post.petpicture}}">
 		        <p class="postInfo"> Name: {{post.petname}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		        <p class="postInfo"> Species: {{post.petspecies}} </p>

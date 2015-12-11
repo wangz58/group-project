@@ -45,7 +45,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 })
 .controller('HomeCtrl', ['$scope', '$http', '$firebaseObject', '$firebaseAuth', '$location', function($scope, $http, $firebaseObject, $firebaseAuth, $location) {
 
-	$scope.bgimg = "http://www.urdogs.com/wp-content/uploads/2015/08/dog-love-cute-wallpaper-1366x768.jpg";
 	var ref = new Firebase('https://pet-app.firebaseio.com');
 
 	var usersRef = ref.child('users');
@@ -56,16 +55,20 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	$scope.errorM = false;
 
+	// logs users in when the signin button is clicked
 	$scope.signIn = function() {
+		// authenticate user's emaill and password using firebase
 		Auth.$authWithPassword({
 			'email': $scope.emailAddress,
 			'password': $scope.passcode
 		})
 		.then(function() {
-			$location.path('posts');	
+			// if authentication is successful, go to 'posts' page
+			$location.path('makePost');	
 			location.reload();	
 		})
 		.catch(function(error) {
+			// if authentication is unseccessful, displays an error message and stays in home page
 			$scope.errorM = true;
 			console.log(error)
 		});
@@ -80,11 +83,13 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	var Auth = $firebaseAuth(ref);
 	
+	// get the current authenticated user's information
 	var authData = Auth.$getAuth();
 
 	console.log(authData);
 	console.log($scope.userId);
 
+	// if the user information is not null, display the user name and logout button on navigation bar
 	if (authData) {
 		$scope.userId = authData.uid;
 		console.log($scope.userId);
@@ -96,10 +101,11 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		};
 	};
 
+	// log user out when user clicks logout button, then go to home page and refreshes the page
 	$scope.logOut = function() {
 		Auth.$unauth();
 
-		$location.path('posts');
+		$location.path('home');
 		location.reload();
 	};
 }])
@@ -114,18 +120,22 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	var Auth = $firebaseAuth(ref);
 
+	// creates a new user object
 	$scope.newUser = {};
 
 	$scope.correctM = false;
 	$scope.errorM = false;
 
+	// create new user when user click submit signup form button
 	$scope.submit = function() {
 		console.log("signing up: " + $scope.newUser.emailAddress);
+		// create new user and enable email and password authentication
       	Auth.$createUser({
 	        'email': $scope.newUser.emailAddress,
 	        'password': $scope.newUser.password
       	})
       	.then(function() {
+      		// log user in with this newly created account
 			var promise = Auth.$authWithPassword({
 				'email': $scope.newUser.emailAddress,
 				'password': $scope.newUser.password
@@ -133,6 +143,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			return promise;
       	})
       	.then(function(authData) {
+      		// store user information such as phonenumber, occupation and gender etc into firebase
       		if (!$scope.newUser.phoneNumber) {
       			$scope.newUser.phoneNumber = '';
       		};
@@ -160,16 +171,19 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
       		$scope.users.$save();
       	})
       	.then(function() {
+      		// if the user is successfully signed up, go to the user's profile and refreshes the page
   			$scope.correctM = true;
   			$location.path('profile');
   			location.reload();
       	})
       	.catch(function(error) {
+      		// if sign up is not successful, stay in this page and display an error message
       		$scope.errorM = true;
       		console.log(error);
       	})
 	};
 
+	// disable the submit button if the user's password doesn't match confirmpassword
 	$scope.compareTo = function() {
 		console.log($scope.newUser.password);
 		console.log($scope.newUser.confirmPassword);
@@ -180,6 +194,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			return false;
 		}
 	};
+
+	// clear all the input boxes if user clicked reset button
 	$scope.reset = function() {
 		location.reload();
 	};
@@ -291,6 +307,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     		$scope.breedChoice = '';
     	};
     };
+
+    $scope.orderPayment = function() {
+    	$scope.sortPayment = '-post.totalpayment';
+    }
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
