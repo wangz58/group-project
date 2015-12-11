@@ -280,6 +280,15 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     var Auth = $firebaseAuth(ref);
 
     var authData = Auth.$getAuth();	
+    $scope.inputText = 'test';
+    $scope.posts = [
+      'test test2;lksdf asdf one asdf poo',
+      'arm test test2 asdf',
+      'test head arm chest'
+    ];
+    $scope.getResult = function() {
+    	var request = $scope.query;
+    	
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
