@@ -1,11 +1,13 @@
 <div class="form-group" ng-controller="SignupCtrl">
 	<h1>BECOME A PET OWNER/HELPER</h1>
 
+	<!-- shows a success message if user has signed up successfully-->
 	<div class="alert alert-success" role="alert" ng-show="correctM">
 		Thank you. You have successfully signed up.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	</div>
 
+	<!-- shows an error message if the user didn't signed up successfully usually because he or she already has an account with the email address -->
 	<div class="alert alert-warning" role="alert" ng-show="errorM">
 		There is an error with your sign up form.
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -18,9 +20,11 @@
 		<p ng-model="invalidEmail" class="help-block" ng-show="signupform.email.$error.email">Not valid email!</p><br>
 
 		<input class="form-control" id="cusName" name="customername" type="text" placeholder="name" ng-model="newUser.customerName" required>
+		<!-- shows a message if user doesn't provide his or her name -->
 		<p class="help-block" ng-show="(signupform.customername.$error.required && signupform.customername.$touched) || (signupform.customername.$error.required && !signupform.customername.$pristine)">Please tell us your name.</p><br>
 
 		<input class="form-control" id="phoneNum" name="phonenum" type="number" placeholder="phone number" maxlength=10 minlength=10 ng-model="newUser.phoneNumber"><br>
+		<!-- shows a message if the user doesn't give a 10-digit phone number -->
 		<p class="help-block" ng-show="signupform.phonenum.$error.minlength || signupform.phonenum.$error.maxlength">Please give a correct phone number.</p>
 
 		<input class="form-control" id="career" name="career" type="text" placeholder="Occupation" ng-model="newUser.career"><br>
@@ -30,26 +34,32 @@
 		<input type="radio" name="sex" value="female" ng-model="newUser.sex" required>    Female<br>
 
 		<input class="form-control" id="streetAdd" name="streetadd" type="text" ng-model="newUser.streetAddress" placeholder="street address" required>
+		<!-- shows a message if the user doesn't give a street address -->
 		<p class="help-block" ng-show="(signupform.streetadd.$error.required && signupform.streetadd.$touched) || (signupform.streetadd.$error.required && !signupform.streetadd.$pristine)">Please provide a street address so that other pet owners/helpers could find you.</p><br>
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 
 				<input class="form-control" id="city" name="city" type="text" placeholder="city" ng-model="newUser.city" required><br>
+				<!-- shows a message if user doesn't provide the city he/she lives in -->
 				<p class="help-block" ng-show="(signupform.city.$error.required && signupform.city.$touched) || (signupform.city.$error.required && !signupform.city.$pristine)">Please tell us the city you live in.</p>
 
 			</div>
 			<div class="col-xs-12 col-sm-4">
 
 				<input class="form-control" id="state" name="state" type="text" ng-model="newUser.state" placeholder="state" minlength=2 maxlength=2 required><br>
+				<!-- shows a message if the user doesn't provide a state -->
 				<p class="help-block" ng-show="(signupform.state.$error.required && signupform.state.$touched) || (signupform.state.$error.required && !signupform.state.$pristine)">Please tell us the state you live in.</p>
+				<!-- shows a message if the user doesn't provide the state name in 2-letter abbreviation -->
 				<p class="help-block" ng-show="signupform.state.$error.minlength || signupform.state.$error.maxlength">Please enter the state name in two letters</p>
 
 			</div>
 			<div class="col-xs-12 col-sm-4">
 
 				<input class="form-control" id="postalCode" name="postalcode" type="text" ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/" placeholder="postal code" ng-model="newUser.postalCode" required><br>
+				<!-- shows a message when user doesn't provide a postal code -->
 				<p class="help-block" ng-show="(signupform.postalcode.$error.required && signupform.postalcode.$touched) || (signupform.postalcode.$error.required && !signupform.postalcode.$pristine)">Please provide a postal code.</p>
+				<!-- shows a message if user doesn't give the postal code in a 5-digit or 9-digit format -->
 				<p class="help-block" ng-show="signupform.postalcode.$touched && signupform.postalcode.$error.pattern">Please enter a valid postal code.</p>
 
 			</div>

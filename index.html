@@ -21,6 +21,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
 	<!-- Include Required Prerequisites -->
 	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
 	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -47,7 +48,7 @@
 	      		<ul class="nav navbar-nav">
 			        <li ng-if="userId"><a ui-sref="profile">Profile</a></li>
 			        <li><a ui-sref="makePost">Need A Helper</a></li>
-			        <li><a ui-sref="posts">Posts</a></li>
+			        <li ng-if="userId"><a ui-sref="posts">Posts</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			        <li ng-if="!userId" id="signup"><a ui-sref="signup">Sign Up</a></li>
