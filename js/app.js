@@ -255,6 +255,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			'totalpayment': $scope.salary,
 			'reason': $scope.why,
 			'contactinfo':$scope.contact,
+			'posttime': Firebase.ServerValue.TIMESTAMP
 		})
 		.then(function() {
 			$scope.errorM = false;
