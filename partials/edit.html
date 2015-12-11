@@ -3,37 +3,38 @@
 <body ng-App="Profile" ng-controller="EditCtrl">
     <div class="container">
         <h1> Edit My Profile </h1>
-        <div class="alert alert-success" role="alert" ng-show="correctM">
-            Thank you. You have successfully edited your profile.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
+        
         <form name="profileform" id="profileForm" nonvalidate>
-
         <div class="form-group">
+            <!-- user can put the profile image -->
             <label for="image">Profile Image URL:</label>
             <img class="image" ng-src="{{myprofile.picture}}">
             <input id="image" name="image" class="form-control" ng-model="myprofile.picture">
         </div>
         </br>
-
         <div class="form-group">
-            <!-- user can put in the  name and it is required -->
+            <!-- user can put in the name and it is required -->
             <label for="name">Name</label>
             <input type="text" name="name" class="form-control" id="name" ng-model="myprofile.customername" placeholder="your name" required>
+
             <!-- shows the error message if the field is left blank after touching it -->
             <p ng-model="noName" class="help-block" ng-show="(profileform.name.$error.required && profileform.name.$touched) || (profileform.name.$error.required && !profileform.name.$pristine)" class="help-block">We need to know your name.</p>
             </br>
 
+            <!-- user can put in the gender and it is required -->
             <label for="gender">Gender</label>
             <input type="radio" name="gender" value="Male" ng-model="myprofile.gender" required> Male
             <input type="radio" name="gender" value="Female" ng-model="myprofile.gender" required> Female
             <input type="radio" name="gender" value="Other" ng-model="myprofile.gender" required> Other 
+
+            <!-- shows the error message if the field is left blank after touching it -->
             <p class="help-block=" ng-show="(profileform.gender.$error.required && profileform.gender.$touched) || (profileform.gender.$error.required && !profileform.gender.$pristine)">We need to know your gender</p></br>
         
-
+            <!-- user can put in the gender and it is optional -->
             <label for="career">Occupation</label>
             <input type="text" name="career" class="form-control" id="career" ng-model="myprofile.career" placeholder="your occupation">
             </br>
+
             <!-- user's phone number and address-->
             <label for="phonenum">Phone Number</label>
             <input class="form-control" id="phoneNum" name="phonenum" type="number" placeholder="phone number" maxlength=10 minlength=10 ng-model="myprofile.phonenumber">
@@ -65,21 +66,17 @@
                 <p class="help-block" ng-show="(profileform.postalcode.$error.required && profileform.postalcode.$touched) || (profileform.postalcode.$error.required && !profileform.postalcode.$pristine)">Please provide a postal code.</p>
                 <p class="help-block" ng-show="profileform.postalcode.$touched && profileform.postalcode.$error.pattern">Please enter a valid postal code.</p>
             </div>
-                
         </div>
 
 
-
-
         <h1> My Pet </h1> 
-
         <div class="form-group">
+            <!-- user can put in the image of their pet -->
             <label for="image">Pet Image URL:</label>
             <img class="image" ng-src="{{petprofile.petpicture}}">
-             <input id="image" name="image" class="form-control" ng-model="petprofile.petpicture">
-         </div>
+            <input id="image" name="image" class="form-control" ng-model="petprofile.petpicture">
+        </div>
         </br>
-
         <div class="form-group">
             <!-- user can put in the pet's name and it is required -->
             <label for="petname">Name</label>
@@ -87,47 +84,50 @@
             <!-- shows the error message if the field is left blank after touching it -->
             <p ng-model="noFirstName" class="help-block" ng-show="(profileform.petname.$error.required && profileform.petname.$touched) || (profileform.petname.$error.required && !profileform.petname.$pristine)" class="help-block">We need to know your pet's name.</p>
             
+            <!-- user can put in the pet's species -->
             <label for="searchSpecies" id="searchSpecies">Species</label>
             <input type="text" name="species" class="form-control" id="species" placeholder="your pet's species (Dogs, Cats, Hamsters, Guinea pigs, Bunnies, Others)" ng-model="petprofile.petspecies">
             <!-- shows the error message if the field is left blank after touching it -->
             <p ng-model="noSpecies" class="help-block" ng-show="(profileform.species.$error.required && profileform.species.$touched) || (profileform.species.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's species.</p>
             </br>
+            <!-- Allow user to search species-->
+            <label for="searchSpecies" id="searchSpecies">Species</label>
+            <select id="speciesChoice" ng-model="petprofile.petspecies" ng-change="hasPet">
+                <option value="Dogs">Dogs</option>
+                <option value="Cats">Cats</option>
+                <option value="Hamsters">Hamsters</option>
+                <option value="Guinea pigs">Guinea pigs</option>
+                <option value="Bunnies">Bunnies</option>
+                <option value="other">Others</option>
+            </select>
+            </br>
 
+            <!-- user can put in breed of the pet -->
+            <label for="breed">Breed</label>
+            <input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="petprofile.petbreed">
+            <!-- shows the error message if the field is left blank after touching it -->
+            <p ng-model="noBreed" class="help-block" ng-show="(profileform.breed.$error.required && profileform.breed.$touched) || (profileform.breed.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's breed.</p>
+            </br>
+
+            <!-- user can put in the pet's gender -->
+            <label for="lastName">Gender</label>
+            <input type="radio" name="gender" value="Male" ng-model="petprofile.petgender"> Male
+            <input type="radio" name="gender" value="Female" ng-model="petprofile.petgender"> Female
+            <input type="radio" name="gender" value="Other" ng-model="petprofile.petgender"> Other</br>
+
+            <!-- user can put the pet's age -->
+            <label for="age" id="ageLabel">Age</label>
+            <input type="number" name="age" class="form-control" id="age" placeholder="your pet's age" ng-model="petprofile.petage">
+            <!-- display required message if user didn't enter a valid birth date -->
+            <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Age is required.</p>
             
-                <label for="searchSpecies" id="searchSpecies">Species</label>
-                <select id="speciesChoice" ng-model="petprofile.petspecies" ng-change="hasPet">
-                    <option value="Dogs">Dogs</option>
-                    <option value="Cats">Cats</option>
-                    <option value="Hamsters">Hamsters</option>
-                    <option value="Guinea pigs">Guinea pigs</option>
-                    <option value="Bunnies">Bunnies</option>
-                    <option value="other">Others</option>
-                </select>
-                </br>
-                <!-- user can put in breed of the pet and it is required -->
-                <label for="breed">Breed</label>
-                <input type="text" name="breed" class="form-control" id="breed" placeholder="your pet's breed" ng-model="petprofile.petbreed">
-                <!-- shows the error message if the field is left blank after touching it -->
-                <p ng-model="noBreed" class="help-block" ng-show="(profileform.breed.$error.required && profileform.breed.$touched) || (profileform.breed.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's breed.</p>
-                </br>
-                <!-- user can put in the pet's gender and it is required -->
-                <label for="lastName">Gender</label>
-                <input type="radio" name="gender" value="Male" ng-model="petprofile.petgender"> Male
-                <input type="radio" name="gender" value="Female" ng-model="petprofile.petgender"> Female
-                <input type="radio" name="gender" value="Other" ng-model="petprofile.petgender"> Other</br>
-                <!-- user should put in their birthdate -->
-                <label for="age" id="ageLabel">Age</label>
-                <input type="number" name="age" class="form-control" id="age" placeholder="your pet's age" ng-model="petprofile.petage">
-                <!-- display required message if user didn't enter a valid birth date -->
-                <p class="help-block" id="birthReq" ng-show="(profileform.birthdate.$error.required && profileform.birthdate.$touched) || (profileform.birthdate.$error.required && !profileform.birthdate.$pristine)">Birthdate is required.</p>
-                <p class="help-block" id="birthRequired" ng-show="birthInfo.check && birthdate != null">Please enter a valid birthdate</p>
-                <!-- user can type in their bio and it is optional  -->
-                <label for="description">Description</label>
-                <input type="description" name="description" class="form-control" id="description" placeholder="a little thing about your pet" ng-model="petprofile.petdescription">
-                </br>
-            </div>
+            <!-- user can type in pet's bio and it is optional  -->
+            <label for="description">Description</label>
+            <input type="description" name="description" class="form-control" id="description" placeholder="a little thing about your pet" ng-model="petprofile.petdescription">
+            </br>
+        </div>
             <!-- submit the form and display a success message when clicked -->
-            <button type="submit" class="btn btn-primary" id="submitBtn" ng-click="updateMyProfile()"> Save Changes</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn" ng-click="updateMyProfile()"> Save Changes</button>
         </form>
     </div>
 </body>

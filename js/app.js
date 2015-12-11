@@ -400,8 +400,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
             alert("Profile saved!");
-            //$location.path('profile');
-            //location.reload();
+            $location.path('profile');
+            location.reload();
         }).catch(function(error) {
             alert("Error!");
         });  
