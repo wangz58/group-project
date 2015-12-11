@@ -378,7 +378,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     	if ($scope.newPetName && usersRef.child($scope.userId).child('pet')) {
     		console.log(usersRef.child($scope.userId).child('pet'));
 			if (!$scope.petprofile.petpicture) {
-    			$scope.petprofile.petpicture = 'css/img/pet-no-img.jpg';
+    			$scope.petprofile.petpicture = 'http://cache1.asset-cache.net/xt/492606186.jpg?v=1&g=fs1%7C0%7CSKP219%7C06%7C186&s=1';
         	};
 			var newUserInfo = {
           	'image': $scope.petprofile.petpicture,
@@ -406,7 +406,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     			'petspecies': $scope.petprofile.petspecies,
     			'petbreed': $scope.petprofile.petbreed,
     			'petgender': $scope.petprofile.petgender,
-    			'petpicture': $scope.petprofile.petpicture,
+    			'petpicture': 'http://cache1.asset-cache.net/xt/492606186.jpg?v=1&g=fs1%7C0%7CSKP219%7C06%7C186&s=1',
     			'petage': $scope.petprofile.petage,
     			'petdescription': $scope.petprofile.petdescription
     		};
