@@ -1,6 +1,7 @@
 <div ng-controller="postsCtrl">
 	<label for="searchBreed" id="searchBreed">Species</label>
 	<select id="breedChoice" ng-model="breedChoice" ng-change="logSelect()">
+		<!-- user can filter the posts by specific species -->
 		<option value="Dogs">Dogs</option>
     	<option value="Cats">Cats</option>
     	<option value="Hamsters">Hamsters</option>
@@ -9,13 +10,14 @@
     	<option value="Other">Other</option>
     	<option value="All">All</option>
     </select>
+    <!-- so that user can see the post in salary order -->
     <button type="submit" class="btn btn-primary" id="order" ng-click="orderPayment()">Order By: Total Payment</button>
     <input type="text" name="searchPost" id="searchPost" placeholder="Type in a specific breed or pet name" class="form-control" ng-model="query" ng-change="getResult()" required>
     <h1 id="pageTitle"> OFFER THEM A TEMPORARY HOME!</h1>
 	<div class="container">
 		<div class="row">
 		    <div id="post" ng-repeat="post in posts | filter : breedChoice|filter: query | orderBy:-post.posttime:sortPayment"> 
-
+		    	<!-- all the information the user can see in the posts -->
 		        <img id="postImage" class="pull-left" ng-src="{{post.petpicture}}">
 		        <p class="postInfo"> Name: {{post.petname}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		        <p class="postInfo"> Species: {{post.petspecies}} </p>

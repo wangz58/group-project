@@ -1,8 +1,7 @@
 'use strict';
 
+// angular module for the pages
 angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
-
-
 .config(function($stateProvider){
 	$stateProvider
 		.state('index', {
@@ -12,31 +11,31 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			templateUrl: 'partials/home.html',
 			controller: 'HomeCtrl'
 		})
+		//signup page
 		.state('signup', {
 			url: '/signup',
 			templateUrl: 'partials/signup.html',
 			controller: 'SignupCtrl'
-		})	
-		.state('discussion', {
-			url: '/discussion', 
-			templateUrl: 'partials/discussion.html',
-			controller: 'DiscussionCtrl'
 		})
+		//profile page
 		.state('profile', {
 			url: '/profile', 
 			templateUrl: 'partials/profile.html',
 			controller: 'ProfileCtrl'
 		})
+		//edit page
 		.state('edit', {
 			url: '/edit', 
 			templateUrl: 'partials/edit.html',
 			controller: 'EditCtrl'
 		})
+		//make post page
 		.state('makePost', {
 		    url: '/makePost',
 			templateUrl: 'partials/makePost.html',
 			controller: 'makePostCtrl'	
 		})
+		//posts page
 		.state('posts', {
 		    url: '/posts',
 			templateUrl: 'partials/posts.html',
@@ -224,6 +223,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			$scope.ownername = snapshot.val();
 		});
 		var petRef = singleUser.child('pet');
+		//gather all the information needed to make a post
 		if (petRef) {
 			var Name = petRef.child('petname').on('value', function(snapshot) {
 				$scope.petname = snapshot.val();
@@ -256,9 +256,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	$scope.seeEnd = function() {
 		console.log($scope.enddate.toString());
 	};
-
+	// sets the message default to false
 	$scope.errorM = false;
-
+	// assign each field value
 	$scope.postIt = function() {
 		console.log($scope.daterange);
 		$scope.posts.$add({
@@ -300,17 +300,18 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     var Auth = $firebaseAuth(ref);
 
     var authData = Auth.$getAuth();	
-
+    // if user chooses All then display all the posts
     $scope.logSelect = function() {
     	console.log($scope.breedChoice);
     	if ($scope.breedChoice == 'All') {
     		$scope.breedChoice = '';
     	};
     };
-
+    // user can choose the see the posts in salary order
     $scope.orderPayment = function() {
     	$scope.sortPayment = '-post.totalpayment';
     }
+
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
@@ -319,10 +320,13 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     var usersRef = ref.child('users');
     var postsRef = ref.child('posts');
 
+
     var Auth = $firebaseAuth(ref);
 
+	// get the current authenticated user's information
     var authData = Auth.$getAuth();
 
+    // if the user information is not null, display the user's info and pet's info
     if (authData) {
         $scope.userId = authData.uid;
         if ($scope.userId) {
@@ -343,8 +347,10 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
     var Auth = $firebaseAuth(ref);
 
+	// get the current authenticated user's information
     var authData = Auth.$getAuth();
 
+	// if the user information is not null, display the user's info and pet's info
     if (authData) {
         $scope.userId = authData.uid;
         if ($scope.userId) {
@@ -364,7 +370,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 		$scope.newPetName = true;
 	};
 
-    // update the myprofile
+    // update the user and pet's profile
     $scope.updateMyProfile = function() {
     	console.log($scope.myprofile.picture);
     	console.log($scope.petprofile.petpicture);
@@ -375,6 +381,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
        	});
        	console.log($scope.petprofile.petname);
 
+       	//set default info of the pet and upload pet info.
     	if ($scope.newPetName && !usersRef.child($scope.userId).child('pet')) {
     		console.log(usersRef.child($scope.userId).child('pet'));
 			if (!$scope.petprofile.petpicture) {
@@ -412,7 +419,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
             alert("Profile saved!");
-            $location.path('profile');
+            $location.path('profile'); //direct to profile page after saving changes
             location.reload();
         }).catch(function(error) {
             alert("Error!");

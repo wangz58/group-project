@@ -96,8 +96,7 @@
                 <option value="other">Others</option>
             </select>
             </br>
-            <!-- user can put in the pet's species -->
-            <input type="text" name="species" class="form-control" id="species" placeholder="your pet's species (Dogs, Cats, Hamsters, Guinea pigs, Bunnies, Others)" ng-model="petprofile.petspecies">
+            
             <!-- shows the error message if the field is left blank after touching it -->
             <p ng-model="noSpecies" class="help-block" ng-show="(profileform.species.$error.required && profileform.species.$touched) || (profileform.species.$error.required && !profileform.breed.$pristine)" class="help-block">We need to know your pet's species.</p>
             </br>
