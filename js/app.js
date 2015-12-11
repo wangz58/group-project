@@ -2,6 +2,7 @@
 
 angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
+
 .config(function($stateProvider){
 	$stateProvider
 		.state('index', {
@@ -199,16 +200,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
 	var authData = Auth.$getAuth();
 
-	//$('input[name="daterange"]').daterangepicker();
-	//$(function() {
-	    //$('input[name="daterange"]').daterangepicker({
-	        //timePicker: true,
-	        //timePickerIncrement: 10,
-	        //locale: {
-	            //format: 'MM/DD/YYYY h:mm A'
-	        //}
-	    //});
-    });
 
 	if (authData) {
 		$scope.userId = authData.uid;
@@ -229,11 +220,22 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			});
 			var picture = petRef.child('petpicture').on('value', function(snapshot) {
 				$scope.petpicture = snapshot.val();
-			})
+			});
+			var age = petRef.child('petage').on('value', function(snapshot) {
+				$scope.petage = snapshot.val();
+			}); 
  			$scope.hasPet = true;
 		} else {
 			$scope.hasPet = false;
 		}
+	};
+
+	$scope.seeStart = function() {
+		console.log($scope.startdate.toString());
+	};
+
+	$scope.seeEnd = function() {
+		console.log($scope.enddate.toString());
 	};
 
 	$scope.errorM = false;
@@ -246,12 +248,13 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			'petname': $scope.petname,
 			'petbreed': $scope.petbreed,
 			'petgender': $scope.petgender,
+			'petage': $scope.petage,
 			'petpicture': $scope.petpicture,
-			'daterange': $scope.daterange,
+			'startdate': $scope.startdate.toString().substring(0, 15),
+			'enddate':$scope.enddate.toString().substring(0,15),
 			'totalpayment': $scope.salary,
 			'reason': $scope.why,
 			'contactinfo':$scope.contact,
-			'posttime': Firebase.ServerValue.TIMESTAMP
 		})
 		.then(function() {
 			$scope.errorM = false;
@@ -366,8 +369,8 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     		if (!$scope.petprofile.petspecies) {
     			$scope.petprofile.petspecies = '';
     		};
-    		if (!$scope.petprofile.petbirthday) {
-    			$scope.petprofile.petbirthday = '';
+    		if (!$scope.petprofile.petage) {
+    			$scope.petprofile.petage = '';
     		};		    
     		if (!$scope.petprofile.petdescription) {
     			$scope.petprofile.petdescription = '';
@@ -387,9 +390,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     	};
     	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
-            //alert("Profile saved!");
-            //$location.path('profile');
-            //location.reload();
+            alert("Profile saved!");
+            $location.path('profile');
+            location.reload();
         }).catch(function(error) {
             alert("Error!");
         });

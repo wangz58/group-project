@@ -1,19 +1,24 @@
 <div class="form-group" ng-controller="makePostCtrl">
     <h1 id='makePostTitle'> Make a post </h1>
-	<div class="alert alert-danger" role="alert" ng-show="!hasPet">
-		It seems that you don't have a pet right now. Please add a pet to your profile.
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	</div>
-	<div class="alert alert-danger" role="alert" ng-show="errorM">
-		Opps, something is wrong.
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	</div>
-	<form name="makePostForm" id="makePostForm" nonvalidate>
-		<!--<div>
-	      <label for="daterange">Choose starting and ending time:</label></br>
-	      <input type="text" class="form-control" id="daterange" name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM" ng-model="daterange">
-	    </div>-->
-
+    <form name="makePostForm" id="makePostForm" nonvalidate>
+		<div class="alert alert-danger" role="alert" ng-show="!hasPet">
+			It seems that you don't have a pet right now. Please add a pet to your profile.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+		<div class="alert alert-danger" role="alert" ng-show="errorM">
+			Opps, something is wrong.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+	    <div class="form-group">
+	        <label for="startdate">Choose a starting date:</label>
+	        <input type="date" class="form-control" id="startdate" name="startdate" ng-model="startdate" ng-change="seeStart()" required>
+	        <p ng-model="startdateBlank" class="help-block" ng-show="(makePostForm.startdate.$error.required && makePostForm.startdate.$touched) || (makePostForm.startdate.$error.required && !makePostForm.startdate.$pristine)">Please tell us when you need a pet helper!</p>
+	    </div>
+	    <div class="form-group">
+	        <label for="enddate">Choose a ending date:</label>
+	        <input type="date" class="form-control" id="enddate" name="enddate" ng-model="enddate" ng-change="seeEnd()" required>
+	        <p ng-model="enddateBlank" class="help-block" ng-show="(makePostForm.enddate.$error.required && makePostForm.enddate.$touched) || (makePostForm.enddate.$error.required && !makePostForm.enddate.$pristine)">Please tell us when you need a pet helper!</p>
+	    </div>
 	    <div class="form-group">
 	      <label for="salary">Total payment:</label></br>
 	      <input type="text" class="form-control" id="salary" name='salary' ng-model="salary" required>

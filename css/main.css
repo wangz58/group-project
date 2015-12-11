@@ -127,6 +127,9 @@ label, p, textarea{
 	width: 470px;
 	margin-bottom: 20px;
 }
+#submitBtn{
+	margin-bottom: 50px;
+}
 
 
 

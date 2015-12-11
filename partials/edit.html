@@ -30,7 +30,7 @@
                 <input type="radio" name="gender" value="Male" ng-model="myprofile.gender" required> Male
                 <input type="radio" name="gender" value="Female" ng-model="myprofile.gender" required> Female
                 <input type="radio" name="gender" value="Other" ng-model="myprofile.gender" required> Other 
-                <p class="help-block=">We need to know your gender</p></br>
+                <p class="help-block=" ng-show="(profileform.gender.$error.required && profileform.gender.$touched) || (profileform.gender.$error.required && !profileform.gender.$pristine)">We need to know your gender</p></br>
 
                 <label for="career">Career</label>
                 <input type="text" name="career" class="form-control" id="career" ng-model="myprofile.career" placeholder="your career">
