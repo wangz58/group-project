@@ -1,6 +1,6 @@
 <div ng-controller="postsCtrl">
 	<label for="searchBreed" id="searchBreed">Species</label>
-	<select id="breedChoice" ng-model="breedChoice">
+	<select id="breedChoice" ng-model="breedChoice" ng-change="logSelect()">
 		<option value="Dogs">Dogs</option>
     	<option value="Cats">Cats</option>
     	<option value="Hamsters">Hamsters</option>
@@ -13,9 +13,11 @@
     <h1 id="pageTitle"> OFFER THEM A TEMPORARY HOME!</h1>
 	<div class="container">
 		<div class="row">
-		    <div id="post" ng-repeat="post in posts"> 
+		    <div id="post" ng-repeat="post in posts | filter : breedChoice : query"> 
 		        <img id="postImage" class="pull-left" ng-src="{{post.petpicture}}">
-		        <p class="postInfo"> Name: {{post.petname}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Breed: {{post.petbreed}} </p>
+		        <p class="postInfo"> Name: {{post.petname}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        <p class="postInfo"> Species: {{post.petspecies}} </p>
+		        <p class="postInfo"> Breed: {{post.petbreed}} </p>
 		        <p class="postInfo"> Age: {{post.petage}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gender: {{post.petgender}}</p>
 		        <p class="postInfo"> This pet needs a temporary home during {{post.startdate}} - {{post.enddate}} </p>
 		        <p class="postInfo"> Total payment: {{post.totalpayment}} dollars</p>

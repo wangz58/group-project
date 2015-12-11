@@ -3,11 +3,18 @@
 
 
 .homePage {
-	background-image: http://www.urdogs.com/wp-content/uploads/2015/08/dog-love-cute-wallpaper-1366x768.jpg;
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: -5000;
+}
+#wallpaper {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  z-index: -100;
 }
 
 
@@ -67,7 +74,6 @@ label, p, textarea{
 }
 #homeTitle {
 	color: white;
-	text-align: center;
 }
 .nav.navbar-nav li a:hover, #homeBtn:hover {
 	-webkit-transform: rotate(7deg);
@@ -125,6 +131,7 @@ label, p, textarea{
 	width: 470px;
 	margin-right: 20px;
 	margin-bottom: 20px;
+	margin-left: 15px;
 }
 #password {
 	width: 470px;

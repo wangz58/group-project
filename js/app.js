@@ -224,6 +224,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var age = petRef.child('petage').on('value', function(snapshot) {
 				$scope.petage = snapshot.val();
 			}); 
+			var petspecies = petRef.child('petspecies').on('value', function(snapshot) {
+				$scope.petspecies = snapshot.val();
+			})
  			$scope.hasPet = true;
 		} else {
 			$scope.hasPet = false;
@@ -246,6 +249,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			'petowner': $scope.userId,
 			'ownername': $scope.ownername,
 			'petname': $scope.petname,
+			'petspecies': $scope.petspecies,
 			'petbreed': $scope.petbreed,
 			'petgender': $scope.petgender,
 			'petage': $scope.petage,
@@ -280,15 +284,19 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     var Auth = $firebaseAuth(ref);
 
     var authData = Auth.$getAuth();	
-    $scope.inputText = 'test';
-    $scope.posts = [
-      'test test2;lksdf asdf one asdf poo',
-      'arm test test2 asdf',
-      'test head arm chest'
-    ];
-    $scope.getResult = function() {
-    	var request = $scope.query;
+
+    $scope.getResult = function() {	
+    	$scope.query = '';
+    }
     	
+
+    $scope.logSelect = function() {
+    	console.log($scope.breedChoice);
+    	if ($scope.breedChoice == 'All') {
+    		$scope.breedChoice = '';
+    	};
+    };
+
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
@@ -310,20 +318,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
             }
         }
     }
-
-    //$scope.imgSrc = '#';
-
-    /*$scope.readURL = function(input) {
-    	if (input.files && input.files[0]) {
-    		var reader = new FileReader();
-
-    		reader.onload = function(i) {
-    			$scope.imgSrc = i.target.result
-    		};
-
-    		reader.readAsDataURL(input.files[0]);
-    	}
-    }*/
 
 }])
 
@@ -357,20 +351,30 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 	};
     // update the myprofile
     $scope.updateMyProfile = function() {
-    	console.log($scope.newPetName);
-    	console.log(usersRef.child($scope.userId).child('pet'));
+    	console.log($scope.myprofile.picture);
+    	console.log($scope.petprofile.petpicture);
     	console.log($scope.userId);
     	var pet = usersRef.child($scope.userId).child('pet').on('value', function(snapshot) {
     		var hasPet = snapshot.val();
     		console.log(hasPet);
        	});
        	console.log($scope.petprofile.petname);
+
     	if ($scope.newPetName && usersRef.child($scope.userId).child('pet')) {
     		console.log(usersRef.child($scope.userId).child('pet'));
-    		if (!$scope.petprofile.petpicture) {
+    		
+			if (!$scope.petprofile.petpicture) {
     			$scope.petprofile.petpicture = 'css/img/pet-no-img.jpg';
-    		};
-    		if (!$scope.petprofile.petbreed) {
+        	};
+
+			var newUserInfo = {
+          	'image': $scope.newUser.avatar,
+          	}
+            $scope.users[authData.uid] = newUserInfo;
+            $scope.users.$save();
+            $scope.userId = authData.uid; //the id of the current user
+
+            if (!$scope.petprofile.petbreed) {
     			$scope.petprofile.petbreed = '';
     		};
     		if (!$scope.petprofile.petgender) {
@@ -398,14 +402,16 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     		$scope.petprofile = petInfo;
     		console.log($scope.petprofile);
     	};
+
     	$scope.myprofile.pet = $scope.petprofile;
         $scope.myprofile.$save().then(function() {
             alert("Profile saved!");
-            $location.path('profile');
-            location.reload();
+            //$location.path('profile');
+            //location.reload();
         }).catch(function(error) {
             alert("Error!");
-        });
-    };    
+        });  
+    }; 
+}])
 
-}]);
+
