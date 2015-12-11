@@ -224,6 +224,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			var age = petRef.child('petage').on('value', function(snapshot) {
 				$scope.petage = snapshot.val();
 			}); 
+			var petspecies = petRef.child('petspecies').on('value', function(snapshot) {
+				$scope.petspecies = snapshot.val();
+			})
  			$scope.hasPet = true;
 		} else {
 			$scope.hasPet = false;
@@ -246,6 +249,7 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 			'petowner': $scope.userId,
 			'ownername': $scope.ownername,
 			'petname': $scope.petname,
+			'petspecies': $scope.petspecies,
 			'petbreed': $scope.petbreed,
 			'petgender': $scope.petgender,
 			'petage': $scope.petage,
@@ -283,6 +287,9 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
 
     $scope.logSelect = function() {
     	console.log($scope.breedChoice);
+    	if ($scope.breedChoice == 'All') {
+    		$scope.breedChoice = '';
+    	};
     };
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
