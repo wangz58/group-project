@@ -6,7 +6,6 @@
 	background-image: url('http://www.urdogs.com/wp-content/uploads/2015/08/dog-love-cute-wallpaper-1366x768.jpg');
     width: 100%;
     height: 100%;
-    position: absolute;
     z-index: -5000;
 }
 
