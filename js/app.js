@@ -307,10 +307,6 @@ angular.module('PetApp', ['ngSanitize', 'ui.router', 'firebase'])
     		$scope.breedChoice = '';
     	};
     };
-    // user can choose the see the posts in salary order
-    $scope.orderPayment = function() {
-    	$scope.sortPayment = '-post.totalpayment';
-    }
 
 }])
 .controller('ProfileCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', '$firebaseAuth', function($scope, $http, $firebaseArray, $firebaseObject, $firebaseAuth) {
